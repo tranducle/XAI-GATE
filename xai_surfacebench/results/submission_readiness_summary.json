@@ -1,0 +1,43 @@
+{
+  "calibration_anchor": {
+    "adversarial_rows": [
+      {
+        "calibration_status": "kddcup99_no_training_score_stream",
+        "exposure_use": 0.03471652777777906,
+        "exposure_violation": 0.0,
+        "high_risk_coverage": 0.1768037940950527,
+        "mean_debt": 10964.046846190944,
+        "policy": "budget_only_bexgov"
+      },
+      {
+        "calibration_status": "kddcup99_no_training_score_stream",
+        "exposure_use": 0.034710277777779054,
+        "exposure_violation": 0.0,
+        "high_risk_coverage": 0.17678227825558632,
+        "mean_debt": 10992.721017719163,
+        "policy": "threshold_explain"
+      },
+      {
+        "calibration_status": "kddcup99_no_training_score_stream",
+        "exposure_use": 0.946911305555598,
+        "exposure_violation": 0.0,
+        "high_risk_coverage": 0.7904915253942693,
+        "mean_debt": 871.9678945701114,
+        "policy": "xai_gate"
+      }
+    ]
+  },
+  "xai_gate_tuning": {
+    "best": {
+      "exposure_use": 0.948582659091086,
+      "exposure_violation": 0.0,
+      "feasible_zero_exposure_violation": true,
+      "high_risk_coverage": 0.8347099434764829,
+      "local_load": 7.126361199999205,
+      "mean_debt": 1018.68357248128,
+      "rank": 1,
+      "variant": "high_exposure_budget"
+    },
+    "default": "HR coverage 0.801, debt 1549.8, exposure use 0.995, violation 0.000"
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "rows": [
+    {
+      "action": "none",
+      "default_compute": "0.00",
+      "default_delay": "0.00",
+      "default_exposure": "0.00",
+      "measured_compute_norm": "0.000",
+      "median_us": "0.035",
+      "p95_us": "0.038",
+      "provenance": "administrative no-op",
+      "sensitivity_status": "bounded by profile_sensitivity"
+    },
+    {
+      "action": "coarse",
+      "default_compute": "0.28",
+      "default_delay": "0.25",
+      "default_exposure": "0.10",
+      "measured_compute_norm": "0.022",
+      "median_us": "5.817",
+      "p95_us": "6.465",
+      "provenance": "top-feature local proxy",
+      "sensitivity_status": "bounded by profile_sensitivity"
+    },
+    {
+      "action": "full",
+      "default_compute": "1.00",
+      "default_delay": "0.85",
+      "default_exposure": "0.85",
+      "measured_compute_norm": "1.000",
+      "median_us": "266.582",
+      "p95_us": "283.673",
+      "provenance": "perturbation-style local proxy",
+      "sensitivity_status": "bounded by profile_sensitivity"
+    },
+    {
+      "action": "offload",
+      "default_compute": "0.16",
+      "default_delay": "1.30",
+      "default_exposure": "1.00",
+      "measured_compute_norm": "0.148",
+      "median_us": "39.525",
+      "p95_us": "43.517",
+      "provenance": "request packaging proxy plus modeled RTT",
+      "sensitivity_status": "bounded by profile_sensitivity"
+    },
+    {
+      "action": "audit",
+      "default_compute": "0.62",
+      "default_delay": "0.70",
+      "default_exposure": "0.34",
+      "measured_compute_norm": "0.038",
+      "median_us": "10.008",
+      "p95_us": "12.025",
+      "provenance": "metadata serialization and hash proxy",
+      "sensitivity_status": "bounded by profile_sensitivity"
+    },
+    {
+      "action": "redact",
+      "default_compute": "0.46",
+      "default_delay": "0.55",
+      "default_exposure": "0.08",
+      "measured_compute_norm": "0.043",
+      "median_us": "11.371",
+      "p95_us": "12.808",
+      "provenance": "top-feature masking proxy",
+      "sensitivity_status": "bounded by profile_sensitivity"
+    },
+    {
+      "action": "delay",
+      "default_compute": "0.00",
+      "default_delay": "1.00",
+      "default_exposure": "0.00",
+      "measured_compute_norm": "0.000",
+      "median_us": "0.033",
+      "p95_us": "0.035",
+      "provenance": "administrative deferral",
+      "sensitivity_status": "bounded by profile_sensitivity"
+    }
+  ],
+  "summary": {
+    "hardware": {
+      "cpu_brand": "Apple M2",
+      "gpu_summary": [
+        "Chipset Model: Apple M2",
+        "Total Number of Cores: 10",
+        "Metal Support: Metal 4"
+      ],
+      "logical_cpu": 8,
+      "machine": "arm64",
+      "memory_gb": 16.0,
+      "model": "Mac14,15",
+      "os": "Darwin 25.5.0",
+      "physical_cpu": 8,
+      "privacy_note": "Serial numbers and user identifiers are intentionally excluded.",
+      "python": "3.14.3"
+    },
+    "measurement_scope": "local proxy measurement on the listed host, not edge/gateway deployment benchmark",
+    "normalization": "median runtime divided by full-action median runtime",
+    "repeats": 20,
+    "vectors": 500,
+    "width": 64
+  }
+}

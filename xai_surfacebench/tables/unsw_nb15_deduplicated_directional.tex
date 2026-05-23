@@ -1,0 +1,18 @@
+\begin{table*}[t]
+\centering
+\scriptsize
+\caption{De-duplicated UNSW-NB15 calibrated-anchor rerun under fixed exposure budget. The stream removes feature-duplicate rows and train-test feature overlap before calibration. HR denotes high-risk coverage, exp. denotes exposure use, and viol. denotes exposure-budget violation.}
+\label{tab:unsw_nb15_deduplicated_anchor}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrrrrr}
+\toprule
+Regime & XAI HR & XAI debt & XAI exp. & XAI viol. & Budget HR & Budget debt & Budget exp. & Thresh. HR & Thresh. exp. & Thresh. viol. \\
+\midrule
+Adversarial demand & 0.729 & 2866.1 & 1.000 & 0.000 & 0.715 & 8220.4 & 0.893 & 0.845 & 1.687 & 0.407 \\
+Transient overload & 0.746 & 3023.7 & 0.993 & 0.000 & 0.641 & 6811.3 & 0.564 & 0.734 & 0.932 & 0.000 \\
+Non-Markovian & 0.771 & 274.4 & 0.906 & 0.000 & 0.628 & 5869.9 & 0.494 & 0.720 & 0.816 & 0.000 \\
+RTT uncertainty & 0.813 & 0.8 & 0.663 & 0.000 & 0.621 & 2694.7 & 0.375 & 0.706 & 0.605 & 0.000 \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}

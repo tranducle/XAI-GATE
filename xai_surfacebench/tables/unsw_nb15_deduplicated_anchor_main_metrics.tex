@@ -1,0 +1,47 @@
+\begin{table*}[t]
+\centering
+\scriptsize
+\caption{XAI-SurfaceBench summary metrics. Each row reports the seed mean; confidence intervals are available in the CSV artifacts.}
+\begin{tabular}{lllrrrrrr}
+\toprule
+Regime & Policy & Variant & Seeds & Drop & Cov. & HR Cov. & Debt & Exposure \\
+\midrule
+adversarial\_explanation\_flood & always\_explain & default & 20 & 0.0000 & 1.0000 & 1.0000 & 0.0000 & 2.8703 \\
+adversarial\_explanation\_flood & budget\_only\_bexgov & default & 20 & 0.0000 & 0.5042 & 0.7152 & 8220.3833 & 0.8931 \\
+adversarial\_explanation\_flood & fifo\_explanation & default & 20 & 0.0000 & 0.8804 & 0.8328 & 2580.3460 & 2.5273 \\
+adversarial\_explanation\_flood & never\_explain & default & 20 & 0.0000 & 0.0000 & 0.0000 & 25940.4355 & 0.0000 \\
+adversarial\_explanation\_flood & rate\_limited & default & 20 & 0.0000 & 0.6786 & 0.8319 & 5567.7975 & 1.6998 \\
+adversarial\_explanation\_flood & static\_coarse\_full & default & 20 & 0.0000 & 0.6330 & 0.8448 & 4262.1650 & 1.6909 \\
+adversarial\_explanation\_flood & static\_offload & default & 20 & 0.0000 & 0.5751 & 0.7188 & 3723.4235 & 1.9785 \\
+adversarial\_explanation\_flood & threshold\_explain & default & 20 & 0.0000 & 0.6320 & 0.8448 & 4275.0703 & 1.6868 \\
+adversarial\_explanation\_flood & xai\_gate & default & 20 & 0.0000 & 0.6532 & 0.7290 & 2866.1321 & 1.0000 \\
+non\_markovian & always\_explain & default & 20 & 0.1402 & 1.0000 & 1.0000 & 0.0000 & 2.1985 \\
+non\_markovian & budget\_only\_bexgov & default & 20 & 0.1374 & 0.3508 & 0.6278 & 5869.8626 & 0.4944 \\
+non\_markovian & fifo\_explanation & default & 20 & 0.1379 & 0.8253 & 0.7018 & 1716.0276 & 1.8178 \\
+non\_markovian & never\_explain & default & 20 & 0.1355 & 0.0000 & 0.0000 & 15062.0106 & 0.0000 \\
+non\_markovian & rate\_limited & default & 20 & 0.1369 & 0.5414 & 0.6845 & 4401.0103 & 0.8326 \\
+non\_markovian & static\_coarse\_full & default & 20 & 0.1375 & 0.4209 & 0.7201 & 4120.2700 & 0.8167 \\
+non\_markovian & static\_offload & default & 20 & 0.1359 & 0.3857 & 0.6184 & 3854.0965 & 0.9516 \\
+non\_markovian & threshold\_explain & default & 20 & 0.1378 & 0.4212 & 0.7198 & 4083.6221 & 0.8158 \\
+non\_markovian & xai\_gate & default & 20 & 0.1364 & 0.6633 & 0.7714 & 274.4169 & 0.9058 \\
+rtt\_uncertainty & always\_explain & default & 20 & 0.0000 & 1.0000 & 1.0000 & 0.0000 & 1.7192 \\
+rtt\_uncertainty & budget\_only\_bexgov & default & 20 & 0.0000 & 0.3416 & 0.6212 & 2694.7366 & 0.3750 \\
+rtt\_uncertainty & fifo\_explanation & default & 20 & 0.0000 & 0.9910 & 0.9832 & 0.1129 & 1.7034 \\
+rtt\_uncertainty & never\_explain & default & 20 & 0.0000 & 0.0000 & 0.0000 & 9717.0720 & 0.0000 \\
+rtt\_uncertainty & rate\_limited & default & 20 & 0.0000 & 0.6342 & 0.7644 & 1.0577 & 0.7129 \\
+rtt\_uncertainty & static\_coarse\_full & default & 20 & 0.0000 & 0.4044 & 0.7059 & 1494.0768 & 0.6073 \\
+rtt\_uncertainty & static\_offload & default & 20 & 0.0000 & 0.3714 & 0.6078 & 1281.3903 & 0.7111 \\
+rtt\_uncertainty & threshold\_explain & default & 20 & 0.0000 & 0.4040 & 0.7061 & 1462.0385 & 0.6052 \\
+rtt\_uncertainty & xai\_gate & default & 20 & 0.0000 & 0.6604 & 0.8135 & 0.8453 & 0.6630 \\
+transient\_overload & always\_explain & default & 20 & 0.2509 & 1.0000 & 1.0000 & 0.0000 & 2.3920 \\
+transient\_overload & budget\_only\_bexgov & default & 20 & 0.2470 & 0.3673 & 0.6406 & 6811.3462 & 0.5640 \\
+transient\_overload & fifo\_explanation & default & 20 & 0.2480 & 0.7173 & 0.5388 & 9872.2878 & 1.7130 \\
+transient\_overload & never\_explain & default & 20 & 0.2452 & 0.0000 & 0.0000 & 17184.9738 & 0.0000 \\
+transient\_overload & rate\_limited & default & 20 & 0.2472 & 0.4866 & 0.6601 & 9177.3613 & 0.8900 \\
+transient\_overload & static\_coarse\_full & default & 20 & 0.2477 & 0.4400 & 0.7338 & 4888.6972 & 0.9308 \\
+transient\_overload & static\_offload & default & 20 & 0.2458 & 0.4021 & 0.6287 & 4688.3173 & 1.0853 \\
+transient\_overload & threshold\_explain & default & 20 & 0.2476 & 0.4403 & 0.7343 & 4883.7786 & 0.9315 \\
+transient\_overload & xai\_gate & default & 20 & 0.2479 & 0.6834 & 0.7457 & 3023.6941 & 0.9928 \\
+\bottomrule
+\end{tabular}
+\end{table*}

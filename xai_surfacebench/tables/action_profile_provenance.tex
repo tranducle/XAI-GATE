@@ -1,0 +1,21 @@
+\begin{table*}[t]
+\centering
+\scriptsize
+\caption{Action-profile provenance for XAI-SurfaceBench. Measured compute values are local proxy runtimes; default compute values are service-profile weights used by the benchmark policy, while coverage and exposure values are design parameters bounded by sensitivity analysis.}
+\label{tab:action_profile_provenance}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrll}
+\toprule
+Action & Default compute & Measured compute & Exposure & Delay & Provenance & Sensitivity status \\
+\midrule
+None & 0.00 & 0.000 & 0.00 & 0.00 & administrative no-op & bounded by profile sensitivity \\
+Coarse & 0.28 & 0.022 & 0.10 & 0.25 & top-feature local proxy & bounded by profile sensitivity \\
+Full & 1.00 & 1.000 & 0.85 & 0.85 & perturbation-style local proxy & bounded by profile sensitivity \\
+Offload & 0.16 & 0.148 & 1.00 & 1.30 & request packaging proxy plus modeled RTT & bounded by profile sensitivity \\
+Audit & 0.62 & 0.038 & 0.34 & 0.70 & metadata serialization and hash proxy & bounded by profile sensitivity \\
+Redact & 0.46 & 0.043 & 0.08 & 0.55 & top-feature masking proxy & bounded by profile sensitivity \\
+Delay & 0.00 & 0.000 & 0.00 & 1.00 & administrative deferral & bounded by profile sensitivity \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}

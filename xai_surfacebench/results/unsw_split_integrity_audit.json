@@ -1,0 +1,126 @@
+{
+  "audit_scope": "UNSW-NB15 public train/test split and derived score stream",
+  "train": {
+    "path": "data/unsw_nb15/raw/train.csv",
+    "bytes": 15380800,
+    "sha256": "734fe6642edf758f7c94d7d9149426b49d202fe8e7bf0bef47392489c3c0a559",
+    "rows": 82332,
+    "label_counts": {
+      "0": 37000,
+      "1": 45332
+    },
+    "attack_cat_counts": {
+      "Normal": 37000,
+      "Reconnaissance": 3496,
+      "Backdoor": 583,
+      "DoS": 4089,
+      "Exploits": 11132,
+      "Analysis": 677,
+      "Fuzzers": 6062,
+      "Worms": 44,
+      "Shellcode": 378,
+      "Generic": 18871
+    },
+    "unique_full_no_id_hashes": 55945,
+    "duplicate_full_no_id_rows": 26387,
+    "unique_feature_hashes": 53946,
+    "duplicate_feature_rows": 28386
+  },
+  "test": {
+    "path": "data/unsw_nb15/raw/test.csv",
+    "bytes": 32293018,
+    "sha256": "bec7dd5ec88dc2a0ccc7a07879d338395ed7421750f675fd0339e07dfe0648fa",
+    "rows": 175341,
+    "label_counts": {
+      "0": 56000,
+      "1": 119341
+    },
+    "attack_cat_counts": {
+      "Normal": 56000,
+      "Backdoor": 1746,
+      "Analysis": 2000,
+      "Fuzzers": 18184,
+      "Shellcode": 1133,
+      "Reconnaissance": 10491,
+      "Exploits": 33393,
+      "DoS": 12264,
+      "Worms": 130,
+      "Generic": 40000
+    },
+    "unique_full_no_id_hashes": 107740,
+    "duplicate_full_no_id_rows": 67601,
+    "unique_feature_hashes": 101040,
+    "duplicate_feature_rows": 74301
+  },
+  "score_stream": {
+    "path": "data/unsw_nb15/unsw_nb15_score_stream.csv",
+    "bytes": 12106117,
+    "sha256": "71e3b5956ed5a63ca96c778be6f79114aa2d50534d63140359cbe45f548fd809",
+    "rows": 175341,
+    "columns": [
+      "score",
+      "true_label",
+      "attack_family",
+      "cost_proxy",
+      "score_source",
+      "split"
+    ],
+    "split_counts": {
+      "test": 175341
+    },
+    "true_label_counts": {
+      "0": 56000,
+      "1": 119341
+    },
+    "attack_family_counts": {
+      "Normal": 56000,
+      "Backdoor": 1746,
+      "Analysis": 2000,
+      "Fuzzers": 18184,
+      "Shellcode": 1133,
+      "Reconnaissance": 10491,
+      "Exploits": 33393,
+      "DoS": 12264,
+      "Worms": 130,
+      "Generic": 40000
+    }
+  },
+  "train_test_overlap_full_no_id": 940,
+  "train_test_overlap_feature_only": 1302,
+  "checks": [
+    {
+      "check": "raw_train_test_columns_match",
+      "status": "PASS",
+      "detail": "train columns=45, test columns=45"
+    },
+    {
+      "check": "score_stream_rows_match_public_test_rows",
+      "status": "PASS",
+      "detail": "score rows=175341, test rows=175341"
+    },
+    {
+      "check": "score_stream_uses_test_split_only",
+      "status": "PASS",
+      "detail": "{'test': 175341}"
+    },
+    {
+      "check": "score_stream_label_counts_match_test",
+      "status": "PASS",
+      "detail": "score labels={'0': 56000, '1': 119341}, test labels={'0': 56000, '1': 119341}"
+    },
+    {
+      "check": "no_exact_train_test_overlap_excluding_id",
+      "status": "WARN",
+      "detail": "overlap full rows excluding id=940"
+    },
+    {
+      "check": "feature_only_train_test_overlap_recorded",
+      "status": "WARN",
+      "detail": "feature-only overlap excluding id/label/attack_cat=1302"
+    }
+  ],
+  "claim_boundary": [
+    "The score stream is a held-out calibration anchor, not a detector contribution.",
+    "Exact local split checks do not establish full historical dataset provenance or temporal leakage absence."
+  ]
+}

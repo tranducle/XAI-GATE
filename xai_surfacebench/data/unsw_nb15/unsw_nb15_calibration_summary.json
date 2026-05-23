@@ -1,0 +1,85 @@
+{
+  "attack_family_counts": {
+    "Analysis": 2000,
+    "Backdoor": 1746,
+    "DoS": 12264,
+    "Exploits": 33393,
+    "Fuzzers": 18184,
+    "Generic": 40000,
+    "Normal": 56000,
+    "Reconnaissance": 10491,
+    "Shellcode": 1133,
+    "Worms": 130
+  },
+  "bucket_summary": {
+    "critical": {
+      "attack_rate": 0.9961188628029907,
+      "mean_score": 0.9948546285183183,
+      "rows": 83996,
+      "share": 0.4790436920058629
+    },
+    "high": {
+      "attack_rate": 0.9381273408239701,
+      "mean_score": 0.7637303904119854,
+      "rows": 6675,
+      "share": 0.038068677605351854
+    },
+    "low": {
+      "attack_rate": 0.25347295826797245,
+      "mean_score": 0.08869497468944897,
+      "rows": 70761,
+      "share": 0.40356220165277945
+    },
+    "medium": {
+      "attack_rate": 0.824861600402617,
+      "mean_score": 0.5323822799626161,
+      "rows": 13909,
+      "share": 0.07932542873600584
+    }
+  },
+  "citation_doi": "10.1109/MilCIS.2015.7348942",
+  "dataset": "UNSW-NB15",
+  "download_mirror": "https://huggingface.co/datasets/Mireu-Lab/UNSW-NB15",
+  "mean_score": 0.5836784321350967,
+  "model_metadata": {
+    "accuracy_at_0_5": 0.860352113880952,
+    "average_precision": 0.9879458035961648,
+    "brier_score": 0.08591872943449023,
+    "categorical_features": [
+      "proto",
+      "service",
+      "state"
+    ],
+    "f1_at_0_5": 0.8878876953929837,
+    "numeric_feature_count": 39,
+    "precision_at_0_5": 0.9787513248877,
+    "recall_at_0_5": 0.8124617692159443,
+    "roc_auc": 0.9760015920764867
+  },
+  "not_claimed": [
+    "The calibrated model is not a detector contribution.",
+    "Detector accuracy is reported only to document score-stream quality.",
+    "XAI-Gate is evaluated as an explanation-service controller, not as an intrusion detector.",
+    "This single real dataset does not establish deployment readiness or operator effectiveness."
+  ],
+  "official_source": "https://research.unsw.edu.au/projects/unsw-nb15-dataset",
+  "positive_rate": 0.6806223302022916,
+  "raw_files": {
+    "test": {
+      "bytes": 32293018,
+      "path": "data/unsw_nb15/raw/test.csv",
+      "sha256": "bec7dd5ec88dc2a0ccc7a07879d338395ed7421750f675fd0339e07dfe0648fa",
+      "url": "https://huggingface.co/datasets/Mireu-Lab/UNSW-NB15/resolve/main/test.csv"
+    },
+    "train": {
+      "bytes": 15380800,
+      "path": "data/unsw_nb15/raw/train.csv",
+      "sha256": "734fe6642edf758f7c94d7d9149426b49d202fe8e7bf0bef47392489c3c0a559",
+      "url": "https://huggingface.co/datasets/Mireu-Lab/UNSW-NB15/resolve/main/train.csv"
+    }
+  },
+  "score_generation": "SGD logistic classifier trained on public UNSW-NB15 train split; predictions on held-out public test split are used only as calibration metadata.",
+  "score_stream_rows": 175341,
+  "test_rows": 175341,
+  "train_rows": 82332
+}

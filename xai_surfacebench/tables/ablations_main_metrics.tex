@@ -1,0 +1,43 @@
+\begin{table*}[t]
+\centering
+\scriptsize
+\caption{XAI-SurfaceBench summary metrics. Each row reports the seed mean; confidence intervals are available in the CSV artifacts.}
+\begin{tabular}{lllrrrrrr}
+\toprule
+Regime & Policy & Variant & Seeds & Drop & Cov. & HR Cov. & Debt & Exposure \\
+\midrule
+adversarial\_explanation\_flood & xai\_gate & default & 20 & 0.0000 & 0.6871 & 0.8008 & 1528.8602 & 0.9942 \\
+non\_markovian & xai\_gate & default & 20 & 0.1362 & 0.6333 & 0.7716 & 123.0811 & 0.8059 \\
+rtt\_uncertainty & xai\_gate & default & 20 & 0.0000 & 0.6428 & 0.8528 & 0.4017 & 0.5765 \\
+transient\_overload & xai\_gate & default & 20 & 0.2480 & 0.6803 & 0.7493 & 2338.2194 & 0.9908 \\
+adversarial\_explanation\_flood & xai\_gate & no\_debt & 20 & 0.0000 & 0.4326 & 0.6371 & 8184.7574 & 0.2378 \\
+non\_markovian & xai\_gate & no\_debt & 20 & 0.1361 & 0.3760 & 0.6496 & 2826.1505 & 0.4232 \\
+rtt\_uncertainty & xai\_gate & no\_debt & 20 & 0.0000 & 0.4684 & 0.7824 & 181.4995 & 0.3920 \\
+transient\_overload & xai\_gate & no\_debt & 20 & 0.2469 & 0.4120 & 0.6306 & 5919.8629 & 0.4814 \\
+adversarial\_explanation\_flood & xai\_gate & no\_exposure\_budget & 20 & 0.0000 & 0.7950 & 0.8313 & 0.1087 & 2.5629 \\
+non\_markovian & xai\_gate & no\_exposure\_budget & 20 & 0.1365 & 0.8692 & 0.8362 & 4.3865 & 2.4957 \\
+rtt\_uncertainty & xai\_gate & no\_exposure\_budget & 20 & 0.0000 & 0.9233 & 0.9414 & 0.0002 & 1.9422 \\
+transient\_overload & xai\_gate & no\_exposure\_budget & 20 & 0.2462 & 0.8834 & 0.8380 & 2.3779 & 2.7608 \\
+adversarial\_explanation\_flood & xai\_gate & no\_fidelity\_control & 20 & 0.0000 & 0.2188 & 0.2878 & 10254.5407 & 0.7502 \\
+non\_markovian & xai\_gate & no\_fidelity\_control & 20 & 0.1365 & 0.2650 & 0.3956 & 3178.9048 & 0.7502 \\
+rtt\_uncertainty & xai\_gate & no\_fidelity\_control & 20 & 0.0000 & 0.4085 & 0.6817 & 482.8309 & 0.7501 \\
+transient\_overload & xai\_gate & no\_fidelity\_control & 20 & 0.2455 & 0.2399 & 0.2742 & 8761.6409 & 0.7506 \\
+adversarial\_explanation\_flood & xai\_gate & no\_offload & 20 & 0.0000 & 0.6961 & 0.8155 & 1562.4019 & 0.9936 \\
+non\_markovian & xai\_gate & no\_offload & 20 & 0.1374 & 0.6444 & 0.8313 & 159.9795 & 0.6588 \\
+rtt\_uncertainty & xai\_gate & no\_offload & 20 & 0.0000 & 0.6420 & 0.8597 & 0.3537 & 0.5621 \\
+transient\_overload & xai\_gate & no\_offload & 20 & 0.2491 & 0.7086 & 0.8346 & 1752.8104 & 0.9669 \\
+adversarial\_explanation\_flood & xai\_gate & no\_rtt\_robustness & 20 & 0.0000 & 0.6795 & 0.7832 & 1528.3755 & 0.9960 \\
+non\_markovian & xai\_gate & no\_rtt\_robustness & 20 & 0.1366 & 0.6384 & 0.7683 & 143.5240 & 0.8460 \\
+rtt\_uncertainty & xai\_gate & no\_rtt\_robustness & 20 & 0.0000 & 0.6740 & 0.7604 & 0.4040 & 0.7496 \\
+transient\_overload & xai\_gate & no\_rtt\_robustness & 20 & 0.2478 & 0.6805 & 0.7437 & 2490.8911 & 0.9955 \\
+adversarial\_explanation\_flood & xai\_gate & no\_suspicion & 20 & 0.0000 & 0.6026 & 0.6705 & 2222.4152 & 1.0000 \\
+non\_markovian & xai\_gate & no\_suspicion & 20 & 0.1370 & 0.6573 & 0.7656 & 220.9154 & 0.9297 \\
+rtt\_uncertainty & xai\_gate & no\_suspicion & 20 & 0.0000 & 0.6486 & 0.8604 & 0.3493 & 0.6075 \\
+transient\_overload & xai\_gate & no\_suspicion & 20 & 0.2481 & 0.6782 & 0.7384 & 2465.9631 & 0.9994 \\
+adversarial\_explanation\_flood & xai\_gate & threshold\_only\_scoring & 20 & 0.0000 & 0.4503 & 0.8289 & 6358.0606 & 1.2940 \\
+non\_markovian & xai\_gate & threshold\_only\_scoring & 20 & 0.1369 & 0.2913 & 0.7319 & 4646.3311 & 0.6413 \\
+rtt\_uncertainty & xai\_gate & threshold\_only\_scoring & 20 & 0.0000 & 0.2784 & 0.7195 & 1844.1919 & 0.4790 \\
+transient\_overload & xai\_gate & threshold\_only\_scoring & 20 & 0.2472 & 0.3048 & 0.7420 & 5581.6039 & 0.7296 \\
+\bottomrule
+\end{tabular}
+\end{table*}

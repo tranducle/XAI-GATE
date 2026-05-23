@@ -1,0 +1,39 @@
+{
+  "bucket_summary": {
+    "critical": {
+      "attack_rate": 0.0,
+      "mean_score": 0.0,
+      "rows": 0,
+      "share": 0.0
+    },
+    "high": {
+      "attack_rate": 1.0,
+      "mean_score": 0.6777674470588233,
+      "rows": 85,
+      "share": 0.0017
+    },
+    "low": {
+      "attack_rate": 0.02530056388977551,
+      "mean_score": 0.1313088866262314,
+      "rows": 46995,
+      "share": 0.9399
+    },
+    "medium": {
+      "attack_rate": 0.12773972602739725,
+      "mean_score": 0.4547956191780819,
+      "rows": 2920,
+      "share": 0.0584
+    }
+  },
+  "mean_score": 0.15112949135999998,
+  "not_claimed": [
+    "No new IDS is trained.",
+    "No detector accuracy contribution is claimed.",
+    "KDDCup99 is used only as an external score/label realism anchor."
+  ],
+  "positive_rate": 0.03294,
+  "rows": 50000,
+  "score_auc_metadata": 0.9552811756477557,
+  "score_generation": "Transparent no-training heuristic over KDDCup99 traffic features; used only for score-bucket calibration metadata.",
+  "source": "sklearn.datasets.fetch_kddcup99(subset='SA', percent10=True)"
+}

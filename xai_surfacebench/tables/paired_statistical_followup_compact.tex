@@ -1,0 +1,27 @@
+\begin{table*}[t]
+\caption{Compact paired statistical follow-up for adversarial explanation-demand comparisons. Differences are XAI-Gate minus the comparator. Positive differences favor XAI-Gate for high-risk coverage; negative differences favor XAI-Gate for debt and exposure-violation metrics.}
+\label{tab:paired_statistical_followup}
+\centering
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lllrrrrr@{}}
+\toprule
+Anchor & Comparison & Metric & Seeds & Mean diff. & 95\% CI & Fav/tie/unfav & Sign $p$ \\
+\midrule
+Synthetic tuned & XAI-Gate--Threshold & HR coverage & 20 & 0.2512 & [0.2504, 0.2519] & 20/0/0 & 1.907e-06 \\
+Synthetic tuned & XAI-Gate--Threshold & Mean debt & 20 & -8859 & [-8898, -8815] & 20/0/0 & 1.907e-06 \\
+Synthetic tuned & XAI-Gate--Threshold & Exposure viol. & 20 & 0 & [0, 0] & 0/20/0 & NA \\
+Synthetic tuned & XAI-Gate--Budget & HR coverage & 20 & 0.02649 & [0.02599, 0.02701] & 20/0/0 & 1.907e-06 \\
+Synthetic tuned & XAI-Gate--Budget & Mean debt & 20 & -3758 & [-3790, -3725] & 20/0/0 & 1.907e-06 \\
+UNSW default & XAI-Gate--Budget & HR coverage & 20 & -0.06705 & [-0.06835, -0.06571] & 0/0/20 & 1.907e-06 \\
+UNSW default & XAI-Gate--Budget & Mean debt & 20 & -3589 & [-3646, -3537] & 20/0/0 & 1.907e-06 \\
+UNSW dedup & XAI-Gate--Budget & HR coverage & 20 & 0.01376 & [0.01238, 0.01521] & 20/0/0 & 1.907e-06 \\
+UNSW dedup & XAI-Gate--Budget & Mean debt & 20 & -5354 & [-5398, -5311] & 20/0/0 & 1.907e-06 \\
+UNSW dedup & XAI-Gate--Threshold & Exposure viol. & 20 & -0.4068 & [-0.4086, -0.405] & 20/0/0 & 1.907e-06 \\
+TON\_IoT & XAI-Gate--Budget & HR coverage & 20 & -0.1127 & [-0.1141, -0.1112] & 0/0/20 & 1.907e-06 \\
+TON\_IoT & XAI-Gate--Budget & Mean debt & 20 & -1772 & [-1841, -1703] & 20/0/0 & 1.907e-06 \\
+TON\_IoT & XAI-Gate--Threshold & Exposure viol. & 20 & -0.625 & [-0.6261, -0.6239] & 20/0/0 & 1.907e-06 \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}

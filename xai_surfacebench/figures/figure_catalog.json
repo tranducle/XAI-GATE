@@ -1,0 +1,44 @@
+{
+  "surface_class": "paper_main",
+  "generating_script": "scripts/make_figures.py",
+  "source_data_dir": "results/",
+  "style": "styles/deepscientist-academic.mplstyle",
+  "figures": [
+    {
+      "name": "main_packet_explanation_frontier",
+      "pdf": "figures/main_packet_explanation_frontier.pdf",
+      "png_preview": "figures/previews/main_packet_explanation_frontier.png",
+      "main_claim": "XAI-Gate is compared as a service-frontier policy rather than a detector-accuracy method.",
+      "self_review_note": "Baseline points were neutralized and XAI-Gate was highlighted directly."
+    },
+    {
+      "name": "demand_inflation_coverage_debt_exposure",
+      "pdf": "figures/demand_inflation_coverage_debt_exposure.pdf",
+      "png_preview": "figures/previews/demand_inflation_coverage_debt_exposure.png",
+      "main_claim": "Demand inflation trades high-risk coverage against debt and exposure pressure.",
+      "self_review_note": "Crowded multi-policy three-panel plot was reduced to a single XAI-Gate response panel."
+    },
+    {
+      "name": "ablation_adversarial_debt_coverage",
+      "pdf": "figures/ablation_adversarial_debt_coverage.pdf",
+      "png_preview": "figures/previews/ablation_adversarial_debt_coverage.png",
+      "main_claim": "Removing state variables changes the debt-coverage operating point.",
+      "self_review_note": "Dual-axis bar/line chart was replaced by a direct debt-versus-coverage operating-point plot."
+    },
+    {
+      "name": "robustness_xai_gate_drop_exposure",
+      "pdf": "figures/robustness_xai_gate_drop_exposure.pdf",
+      "png_preview": "figures/previews/robustness_xai_gate_drop_exposure.png",
+      "main_claim": "Robustness sweeps delimit the exposure/drop boundary under stressed variants.",
+      "self_review_note": "Repeated vertical stacks were replaced by a representative worst-drop boundary scatter."
+    }
+  ],
+  "generated_pdf_paths": [
+    "figures/main_packet_explanation_frontier.pdf",
+    "figures/demand_inflation_debt_drop_curves.pdf",
+    "figures/demand_inflation_coverage_debt_exposure.pdf",
+    "figures/frontier_budget_envelope.pdf",
+    "figures/ablation_adversarial_debt_coverage.pdf",
+    "figures/robustness_xai_gate_drop_exposure.pdf"
+  ]
+}

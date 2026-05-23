@@ -1,0 +1,87 @@
+{
+  "name": "tuned_baseline_envelopes",
+  "experiment_type": "custom_variants",
+  "slots": 5000,
+  "seeds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+  "policies": [
+    "never_explain",
+    "always_explain",
+    "threshold_explain",
+    "rate_limited",
+    "fifo_explanation",
+    "static_coarse_full",
+    "static_offload",
+    "budget_only_bexgov",
+    "xai_gate"
+  ],
+  "regimes": [
+    "adversarial_explanation_flood",
+    "transient_overload",
+    "non_markovian",
+    "rtt_uncertainty"
+  ],
+  "base": {
+    "packet_arrival_rate": 45.0,
+    "packet_service_rate": 52.0,
+    "packet_buffer_capacity": 240.0,
+    "alert_probability": 0.15,
+    "local_explanation_budget": 18.0,
+    "exposure_budget_total": 18000.0,
+    "threshold": 0.72
+  },
+  "variants": [
+    {"name": "never_default", "policies": ["never_explain"]},
+    {"name": "always_default", "policies": ["always_explain"]},
+    {"name": "xai_gate_default", "policies": ["xai_gate"]},
+
+    {"name": "threshold_0.55", "policies": ["threshold_explain"], "base": {"threshold": 0.55}},
+    {"name": "threshold_0.62", "policies": ["threshold_explain"], "base": {"threshold": 0.62}},
+    {"name": "threshold_0.68", "policies": ["threshold_explain"], "base": {"threshold": 0.68}},
+    {"name": "threshold_0.72", "policies": ["threshold_explain"], "base": {"threshold": 0.72}},
+    {"name": "threshold_0.78", "policies": ["threshold_explain"], "base": {"threshold": 0.78}},
+    {"name": "threshold_0.84", "policies": ["threshold_explain"], "base": {"threshold": 0.84}},
+    {"name": "threshold_0.90", "policies": ["threshold_explain"], "base": {"threshold": 0.90}},
+
+    {"name": "rate_quota_4", "policies": ["rate_limited"], "base": {"rate_limit_quota": 4.0}},
+    {"name": "rate_quota_6", "policies": ["rate_limited"], "base": {"rate_limit_quota": 6.0}},
+    {"name": "rate_quota_8", "policies": ["rate_limited"], "base": {"rate_limit_quota": 8.0}},
+    {"name": "rate_quota_10", "policies": ["rate_limited"], "base": {"rate_limit_quota": 10.0}},
+    {"name": "rate_quota_12", "policies": ["rate_limited"], "base": {"rate_limit_quota": 12.0}},
+    {"name": "rate_quota_16", "policies": ["rate_limited"], "base": {"rate_limit_quota": 16.0}},
+    {"name": "rate_quota_20", "policies": ["rate_limited"], "base": {"rate_limit_quota": 20.0}},
+
+    {"name": "fifo_quota_6", "policies": ["fifo_explanation"], "base": {"fifo_service_quota": 6.0}},
+    {"name": "fifo_quota_10", "policies": ["fifo_explanation"], "base": {"fifo_service_quota": 10.0}},
+    {"name": "fifo_quota_14", "policies": ["fifo_explanation"], "base": {"fifo_service_quota": 14.0}},
+    {"name": "fifo_quota_18", "policies": ["fifo_explanation"], "base": {"fifo_service_quota": 18.0}},
+    {"name": "fifo_quota_24", "policies": ["fifo_explanation"], "base": {"fifo_service_quota": 24.0}},
+
+    {"name": "static_cf_h0.70_m0.35", "policies": ["static_coarse_full"], "base": {"static_high_threshold": 0.70, "static_medium_threshold": 0.35}},
+    {"name": "static_cf_h0.70_m0.45", "policies": ["static_coarse_full"], "base": {"static_high_threshold": 0.70, "static_medium_threshold": 0.45}},
+    {"name": "static_cf_h0.70_m0.55", "policies": ["static_coarse_full"], "base": {"static_high_threshold": 0.70, "static_medium_threshold": 0.55}},
+    {"name": "static_cf_h0.78_m0.35", "policies": ["static_coarse_full"], "base": {"static_high_threshold": 0.78, "static_medium_threshold": 0.35}},
+    {"name": "static_cf_h0.78_m0.45", "policies": ["static_coarse_full"], "base": {"static_high_threshold": 0.78, "static_medium_threshold": 0.45}},
+    {"name": "static_cf_h0.78_m0.55", "policies": ["static_coarse_full"], "base": {"static_high_threshold": 0.78, "static_medium_threshold": 0.55}},
+    {"name": "static_cf_h0.86_m0.35", "policies": ["static_coarse_full"], "base": {"static_high_threshold": 0.86, "static_medium_threshold": 0.35}},
+    {"name": "static_cf_h0.86_m0.45", "policies": ["static_coarse_full"], "base": {"static_high_threshold": 0.86, "static_medium_threshold": 0.45}},
+    {"name": "static_cf_h0.86_m0.55", "policies": ["static_coarse_full"], "base": {"static_high_threshold": 0.86, "static_medium_threshold": 0.55}},
+
+    {"name": "static_off_h0.70_m0.35", "policies": ["static_offload"], "base": {"static_offload_threshold": 0.70, "static_offload_medium_threshold": 0.35}},
+    {"name": "static_off_h0.70_m0.45", "policies": ["static_offload"], "base": {"static_offload_threshold": 0.70, "static_offload_medium_threshold": 0.45}},
+    {"name": "static_off_h0.70_m0.55", "policies": ["static_offload"], "base": {"static_offload_threshold": 0.70, "static_offload_medium_threshold": 0.55}},
+    {"name": "static_off_h0.78_m0.35", "policies": ["static_offload"], "base": {"static_offload_threshold": 0.78, "static_offload_medium_threshold": 0.35}},
+    {"name": "static_off_h0.78_m0.45", "policies": ["static_offload"], "base": {"static_offload_threshold": 0.78, "static_offload_medium_threshold": 0.45}},
+    {"name": "static_off_h0.78_m0.55", "policies": ["static_offload"], "base": {"static_offload_threshold": 0.78, "static_offload_medium_threshold": 0.55}},
+    {"name": "static_off_h0.86_m0.35", "policies": ["static_offload"], "base": {"static_offload_threshold": 0.86, "static_offload_medium_threshold": 0.35}},
+    {"name": "static_off_h0.86_m0.45", "policies": ["static_offload"], "base": {"static_offload_threshold": 0.86, "static_offload_medium_threshold": 0.45}},
+    {"name": "static_off_h0.86_m0.55", "policies": ["static_offload"], "base": {"static_offload_threshold": 0.86, "static_offload_medium_threshold": 0.55}},
+
+    {"name": "bexgov_pressure_0.55", "policies": ["budget_only_bexgov"], "base": {"bexgov_pressure_threshold": 0.55}},
+    {"name": "bexgov_pressure_0.72", "policies": ["budget_only_bexgov"], "base": {"bexgov_pressure_threshold": 0.72}},
+    {"name": "bexgov_pressure_0.88", "policies": ["budget_only_bexgov"], "base": {"bexgov_pressure_threshold": 0.88}}
+  ],
+  "calibration": {
+    "score_stream_path": "",
+    "training_summary_path": ""
+  }
+}

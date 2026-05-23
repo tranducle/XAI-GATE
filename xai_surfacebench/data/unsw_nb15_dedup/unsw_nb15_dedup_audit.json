@@ -1,0 +1,20 @@
+{
+  "deduplication_key": "all feature columns excluding id, label, and attack_cat",
+  "exact_hash_train_test_overlap_after": 0,
+  "exact_hash_train_test_overlap_before": 940,
+  "exact_overlap_key": "all columns excluding id",
+  "feature_hash_train_test_overlap_after": 0,
+  "feature_hash_train_test_overlap_before": 1302,
+  "policy": [
+    "Keep first training row per feature hash.",
+    "Keep first test row per feature hash.",
+    "Remove any remaining test row whose feature hash appears in the de-duplicated training split."
+  ],
+  "test_feature_duplicate_rows_removed": 74301,
+  "test_rows_after": 99738,
+  "test_rows_before": 175341,
+  "test_rows_removed_due_train_feature_overlap_after_internal_dedup": 1302,
+  "train_feature_duplicate_rows_removed": 28386,
+  "train_rows_after": 53946,
+  "train_rows_before": 82332
+}

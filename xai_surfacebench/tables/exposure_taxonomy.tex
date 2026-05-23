@@ -1,0 +1,21 @@
+\begin{table*}[t]
+\centering
+\scriptsize
+\caption{Exposure taxonomy for explanation-surface actions.}
+\label{tab:exposure_taxonomy}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllllr}
+\toprule
+Action & Feature disclosure & Model behavior & Offload path & Audit trace & Exposure \\
+\midrule
+none & none & none & none & none & 0.00 \\
+coarse & top feature groups & low & none & none & 0.10 \\
+full & full attribution vector & high & none & low & 0.85 \\
+offload & sanitized alert vector & high & managed fog/cloud service & medium & 1.00 \\
+audit & metadata summary & medium & none & high & 0.34 \\
+redact & masked attribution & low & none & low & 0.08 \\
+delay & none now & none now & none & queue marker & 0.00 \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}

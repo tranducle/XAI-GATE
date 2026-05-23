@@ -1,0 +1,47 @@
+[
+  {
+    "action": "delay",
+    "coverage": 0.0,
+    "debt_per_item": 1.028,
+    "explanation_debt": 102.80000000000001,
+    "item_count": 100,
+    "risk_bucket": "low",
+    "scenario": "same count, low-risk delayed"
+  },
+  {
+    "action": "delay",
+    "coverage": 0.0,
+    "debt_per_item": 1.6510000000000002,
+    "explanation_debt": 165.10000000000002,
+    "item_count": 100,
+    "risk_bucket": "critical",
+    "scenario": "same count, critical delayed"
+  },
+  {
+    "action": "coarse",
+    "coverage": 0.45,
+    "debt_per_item": 0.627,
+    "explanation_debt": 62.7,
+    "item_count": 100,
+    "risk_bucket": "high",
+    "scenario": "same count, high-risk coarse"
+  },
+  {
+    "action": "audit",
+    "coverage": 0.72,
+    "debt_per_item": 0.31920000000000004,
+    "explanation_debt": 31.92,
+    "item_count": 100,
+    "risk_bucket": "high",
+    "scenario": "same count, high-risk audit"
+  },
+  {
+    "action": "full",
+    "coverage": 1.0,
+    "debt_per_item": 0.0,
+    "explanation_debt": 0.0,
+    "item_count": 100,
+    "risk_bucket": "critical",
+    "scenario": "same count, full explanation"
+  }
+]

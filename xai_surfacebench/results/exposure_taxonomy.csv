@@ -1,0 +1,8 @@
+action,feature,model_behavior,policy_threshold,offload_path,audit_trace,exposure
+none,none,none,none,none,none,0.00
+coarse,top feature groups,low,low,none,none,0.10
+full,full attribution vector,high,medium,none,low,0.85
+offload,sanitized alert vector,high,medium,managed fog/cloud service,medium,1.00
+audit,metadata summary,medium,medium,none,high,0.34
+redact,masked attribution,low,low,none,low,0.08
+delay,none now,none now,low,none,queue marker,0.00

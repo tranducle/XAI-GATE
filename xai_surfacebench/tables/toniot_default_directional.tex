@@ -1,0 +1,18 @@
+\begin{table*}[t]
+\centering
+\scriptsize
+\caption{TON\_IoT calibrated-anchor results under fixed exposure budget. The stream is generated from an overlap-controlled, held-out test split and is used only as calibration metadata for explanation-surface stress testing. HR denotes high-risk coverage, exp. denotes exposure use, and viol. denotes exposure-budget violation.}
+\label{tab:toniot_anchor}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrrrrr}
+\toprule
+Regime & XAI HR & XAI debt & XAI exp. & XAI viol. & Budget HR & Budget debt & Budget exp. & Thresh. HR & Thresh. exp. & Thresh. viol. \\
+\midrule
+Adversarial demand & 0.654 & 5020.2 & 1.000 & 0.000 & 0.767 & 6792.3 & 0.931 & 0.994 & 2.666 & 0.625 \\
+Transient overload & 0.689 & 4947.5 & 1.000 & 0.000 & 0.786 & 5201.8 & 0.808 & 0.986 & 1.970 & 0.489 \\
+Non-Markovian & 0.754 & 1274.4 & 0.979 & 0.000 & 0.788 & 3639.3 & 0.736 & 0.984 & 1.786 & 0.438 \\
+RTT uncertainty & 0.863 & 98.0 & 0.932 & 0.000 & 0.793 & 867.6 & 0.581 & 0.984 & 1.385 & 0.277 \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}

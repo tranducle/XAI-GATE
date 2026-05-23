@@ -1,0 +1,21 @@
+\begin{table*}[t]
+\centering
+\scriptsize
+\caption{Selected XAI-Gate operating points on the UNSW-NB15 calibrated anchor. The expanded-budget row is reported separately and is not a fixed-budget comparison.}
+\label{tab:unsw_nb15_xai_tuning}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllrrrrr}
+\toprule
+Regime & Variant & Note & HR coverage & Debt & Exposure & Violation & Drop \\
+\midrule
+Adversarial demand & High local budget & fixed exposure, larger local capacity & 0.699 & 3382.6 & 1.000 & 0.000 & 0.000 \\
+Adversarial demand & Strict suspicion & fixed exposure, stricter suspicion & 0.689 & 4090.5 & 1.000 & 0.000 & 0.000 \\
+Adversarial demand & Strict exposure & fixed exposure, stricter exposure weight & 0.686 & 4169.4 & 1.000 & 0.000 & 0.000 \\
+Adversarial demand & High exposure budget & expanded exposure budget & 0.790 & 2794.0 & 0.990 & 0.000 & 0.000 \\
+Transient overload & Balanced coverage & fixed exposure, balanced coverage & 0.766 & 3741.4 & 1.000 & 0.000 & 0.248 \\
+Non-Markovian & Strict suspicion & fixed exposure, stricter suspicion & 0.772 & 593.1 & 0.932 & 0.000 & 0.137 \\
+RTT uncertainty & Balanced coverage & fixed exposure, balanced coverage & 0.873 & 5.9 & 0.888 & 0.000 & 0.000 \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}

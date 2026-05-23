@@ -1,0 +1,71 @@
+\begin{table*}[t]
+\centering
+\scriptsize
+\caption{XAI-SurfaceBench summary metrics. Each row reports the seed mean; confidence intervals are available in the CSV artifacts.}
+\begin{tabular}{lllrrrrrr}
+\toprule
+Regime & Policy & Variant & Seeds & Drop & Cov. & HR Cov. & Debt & Exposure \\
+\midrule
+adversarial\_explanation\_flood & xai\_gate & audit\_coverage\_high & 20 & 0.0000 & 0.7739 & 0.8683 & 402.1615 & 0.9292 \\
+non\_markovian & xai\_gate & audit\_coverage\_high & 20 & 0.1369 & 0.6641 & 0.8570 & 75.7783 & 0.6848 \\
+rtt\_uncertainty & xai\_gate & audit\_coverage\_high & 20 & 0.0000 & 0.6901 & 0.8768 & 0.1148 & 0.4954 \\
+transient\_overload & xai\_gate & audit\_coverage\_high & 20 & 0.2476 & 0.7363 & 0.8156 & 1287.3842 & 0.9682 \\
+adversarial\_explanation\_flood & xai\_gate & audit\_coverage\_low & 20 & 0.0000 & 0.6690 & 0.7761 & 1873.8326 & 0.8843 \\
+non\_markovian & xai\_gate & audit\_coverage\_low & 20 & 0.1365 & 0.6281 & 0.7556 & 138.4809 & 0.7794 \\
+rtt\_uncertainty & xai\_gate & audit\_coverage\_low & 20 & 0.0000 & 0.6413 & 0.8435 & 0.5046 & 0.5693 \\
+transient\_overload & xai\_gate & audit\_coverage\_low & 20 & 0.2473 & 0.6586 & 0.7199 & 2726.2905 & 0.8786 \\
+adversarial\_explanation\_flood & xai\_gate & coarse\_coverage\_high & 20 & 0.0000 & 0.6970 & 0.7443 & 988.9452 & 0.9860 \\
+non\_markovian & xai\_gate & coarse\_coverage\_high & 20 & 0.1368 & 0.6497 & 0.6469 & 59.9964 & 0.6205 \\
+rtt\_uncertainty & xai\_gate & coarse\_coverage\_high & 20 & 0.0000 & 0.6754 & 0.7538 & 0.1367 & 0.4903 \\
+transient\_overload & xai\_gate & coarse\_coverage\_high & 20 & 0.2472 & 0.6924 & 0.7099 & 1706.4352 & 0.9915 \\
+adversarial\_explanation\_flood & xai\_gate & coarse\_coverage\_low & 20 & 0.0000 & 0.6880 & 0.8010 & 1520.8785 & 0.9938 \\
+non\_markovian & xai\_gate & coarse\_coverage\_low & 20 & 0.1366 & 0.6377 & 0.7743 & 120.8291 & 0.8023 \\
+rtt\_uncertainty & xai\_gate & coarse\_coverage\_low & 20 & 0.0000 & 0.6849 & 0.8660 & 0.2529 & 0.5690 \\
+transient\_overload & xai\_gate & coarse\_coverage\_low & 20 & 0.2479 & 0.6816 & 0.7497 & 2340.5209 & 0.9909 \\
+adversarial\_explanation\_flood & xai\_gate & cost\_scale\_high & 20 & 0.0000 & 0.6569 & 0.7530 & 2300.8543 & 1.0000 \\
+non\_markovian & xai\_gate & cost\_scale\_high & 20 & 0.1377 & 0.6453 & 0.7852 & 180.3937 & 0.8509 \\
+rtt\_uncertainty & xai\_gate & cost\_scale\_high & 20 & 0.0000 & 0.6390 & 0.8503 & 0.8142 & 0.5789 \\
+transient\_overload & xai\_gate & cost\_scale\_high & 20 & 0.2483 & 0.6792 & 0.7471 & 2631.9115 & 0.9933 \\
+adversarial\_explanation\_flood & xai\_gate & cost\_scale\_low & 20 & 0.0000 & 0.6857 & 0.8059 & 1043.4767 & 0.9781 \\
+non\_markovian & xai\_gate & cost\_scale\_low & 20 & 0.1359 & 0.6261 & 0.7620 & 92.2496 & 0.7798 \\
+rtt\_uncertainty & xai\_gate & cost\_scale\_low & 20 & 0.0000 & 0.6483 & 0.8555 & 0.2267 & 0.5751 \\
+transient\_overload & xai\_gate & cost\_scale\_low & 20 & 0.2474 & 0.6805 & 0.7505 & 2079.0911 & 0.9887 \\
+adversarial\_explanation\_flood & xai\_gate & debt\_scale\_high & 20 & 0.0000 & 0.6488 & 0.7413 & 3124.0543 & 1.0000 \\
+non\_markovian & xai\_gate & debt\_scale\_high & 20 & 0.1365 & 0.6732 & 0.7973 & 371.4907 & 0.9157 \\
+rtt\_uncertainty & xai\_gate & debt\_scale\_high & 20 & 0.0000 & 0.6490 & 0.8597 & 4.0013 & 0.5859 \\
+transient\_overload & xai\_gate & debt\_scale\_high & 20 & 0.2478 & 0.6814 & 0.7456 & 3394.0936 & 0.9964 \\
+adversarial\_explanation\_flood & xai\_gate & debt\_scale\_low & 20 & 0.0000 & 0.6793 & 0.8114 & 422.7310 & 0.9428 \\
+non\_markovian & xai\_gate & debt\_scale\_low & 20 & 0.1364 & 0.5912 & 0.7380 & 42.2993 & 0.7109 \\
+rtt\_uncertainty & xai\_gate & debt\_scale\_low & 20 & 0.0000 & 0.6424 & 0.8519 & 0.0532 & 0.5751 \\
+transient\_overload & xai\_gate & debt\_scale\_low & 20 & 0.2474 & 0.6768 & 0.7497 & 1296.0152 & 0.9847 \\
+adversarial\_explanation\_flood & xai\_gate & full\_exposure\_high & 20 & 0.0000 & 0.6612 & 0.7409 & 1631.6775 & 0.9989 \\
+non\_markovian & xai\_gate & full\_exposure\_high & 20 & 0.1371 & 0.6316 & 0.7585 & 129.3568 & 0.8101 \\
+rtt\_uncertainty & xai\_gate & full\_exposure\_high & 20 & 0.0000 & 0.6130 & 0.7890 & 0.7263 & 0.5118 \\
+transient\_overload & xai\_gate & full\_exposure\_high & 20 & 0.2478 & 0.6790 & 0.7458 & 2356.0183 & 0.9910 \\
+adversarial\_explanation\_flood & xai\_gate & full\_exposure\_low & 20 & 0.0000 & 0.7331 & 0.8626 & 800.0556 & 0.9541 \\
+non\_markovian & xai\_gate & full\_exposure\_low & 20 & 0.1366 & 0.6451 & 0.8268 & 95.8254 & 0.7835 \\
+rtt\_uncertainty & xai\_gate & full\_exposure\_low & 20 & 0.0000 & 0.6858 & 0.9085 & 0.1713 & 0.5633 \\
+transient\_overload & xai\_gate & full\_exposure\_low & 20 & 0.2483 & 0.6950 & 0.7880 & 2183.2307 & 0.9871 \\
+adversarial\_explanation\_flood & xai\_gate & offload\_delay\_high & 20 & 0.0000 & 0.6868 & 0.8004 & 1521.8914 & 0.9940 \\
+non\_markovian & xai\_gate & offload\_delay\_high & 20 & 0.1366 & 0.6336 & 0.7715 & 123.7295 & 0.8073 \\
+rtt\_uncertainty & xai\_gate & offload\_delay\_high & 20 & 0.0000 & 0.6429 & 0.8527 & 0.4028 & 0.5764 \\
+transient\_overload & xai\_gate & offload\_delay\_high & 20 & 0.2478 & 0.6801 & 0.7490 & 2341.5020 & 0.9909 \\
+adversarial\_explanation\_flood & xai\_gate & offload\_delay\_low & 20 & 0.0000 & 0.6870 & 0.8002 & 1547.2145 & 0.9948 \\
+non\_markovian & xai\_gate & offload\_delay\_low & 20 & 0.1373 & 0.6337 & 0.7710 & 125.0893 & 0.8093 \\
+rtt\_uncertainty & xai\_gate & offload\_delay\_low & 20 & 0.0000 & 0.6432 & 0.8526 & 0.3921 & 0.5767 \\
+transient\_overload & xai\_gate & offload\_delay\_low & 20 & 0.2474 & 0.6801 & 0.7491 & 2348.3535 & 0.9912 \\
+adversarial\_explanation\_flood & xai\_gate & offload\_exposure\_high & 20 & 0.0000 & 0.6959 & 0.8146 & 1593.1227 & 0.9949 \\
+non\_markovian & xai\_gate & offload\_exposure\_high & 20 & 0.1364 & 0.6348 & 0.7981 & 144.3532 & 0.7592 \\
+rtt\_uncertainty & xai\_gate & offload\_exposure\_high & 20 & 0.0000 & 0.6414 & 0.8580 & 0.3730 & 0.5647 \\
+transient\_overload & xai\_gate & offload\_exposure\_high & 20 & 0.2480 & 0.6747 & 0.7770 & 2320.6759 & 0.9880 \\
+adversarial\_explanation\_flood & xai\_gate & offload\_exposure\_low & 20 & 0.0000 & 0.6799 & 0.7592 & 922.2021 & 0.9697 \\
+non\_markovian & xai\_gate & offload\_exposure\_low & 20 & 0.1374 & 0.6649 & 0.7859 & 126.9760 & 0.8683 \\
+rtt\_uncertainty & xai\_gate & offload\_exposure\_low & 20 & 0.0000 & 0.6640 & 0.8176 & 0.2341 & 0.6230 \\
+transient\_overload & xai\_gate & offload\_exposure\_low & 20 & 0.2474 & 0.7083 & 0.7549 & 2025.4902 & 0.9854 \\
+adversarial\_explanation\_flood & xai\_gate & profile\_default & 20 & 0.0000 & 0.6872 & 0.8007 & 1525.6411 & 0.9941 \\
+non\_markovian & xai\_gate & profile\_default & 20 & 0.1365 & 0.6337 & 0.7718 & 124.5613 & 0.8079 \\
+rtt\_uncertainty & xai\_gate & profile\_default & 20 & 0.0000 & 0.6431 & 0.8526 & 0.4017 & 0.5764 \\
+transient\_overload & xai\_gate & profile\_default & 20 & 0.2479 & 0.6800 & 0.7490 & 2349.7991 & 0.9913 \\
+\bottomrule
+\end{tabular}
+\end{table*}

@@ -1,0 +1,19 @@
+\begin{table}[t]
+\centering
+\scriptsize
+\caption{Debt-vs-count diagnostic. Equal alert-obligation counts can imply different explanation debt because debt is risk- and obligation-weighted.}
+\label{tab:debt_backlog_diagnostic}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lrrr}
+\toprule
+Scenario & Items & Coverage & Debt \\
+\midrule
+same count, low-risk delayed & 100 & 0.00 & 102.8 \\
+same count, critical delayed & 100 & 0.00 & 165.1 \\
+same count, high-risk coarse & 100 & 0.45 & 62.7 \\
+same count, high-risk audit & 100 & 0.72 & 31.9 \\
+same count, full explanation & 100 & 1.00 & 0.0 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

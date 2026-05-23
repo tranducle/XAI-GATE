@@ -1,0 +1,5 @@
+regime,xai_high_risk_coverage,xai_mean_debt,xai_exposure_use,xai_exposure_violation,budget_high_risk_coverage,budget_mean_debt,budget_exposure_use,threshold_high_risk_coverage,threshold_exposure_use,threshold_exposure_violation
+adversarial_explanation_flood,0.654,5020.2,1.000,0.000,0.767,6792.3,0.931,0.994,2.666,0.625
+transient_overload,0.689,4947.5,1.000,0.000,0.786,5201.8,0.808,0.986,1.970,0.489
+non_markovian,0.754,1274.4,0.979,0.000,0.788,3639.3,0.736,0.984,1.786,0.438
+rtt_uncertainty,0.863,98.0,0.932,0.000,0.793,867.6,0.581,0.984,1.385,0.277

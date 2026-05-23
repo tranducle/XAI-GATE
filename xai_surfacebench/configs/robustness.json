@@ -1,0 +1,35 @@
+{
+  "name": "robustness",
+  "experiment_type": "robustness",
+  "slots": 5000,
+  "seeds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+  "policies": [
+    "threshold_explain",
+    "rate_limited",
+    "static_offload",
+    "budget_only_bexgov",
+    "xai_gate"
+  ],
+  "regimes": [
+    "bursty",
+    "transient_overload",
+    "rtt_uncertainty",
+    "detection_matrix_perturbation"
+  ],
+  "sweep": {
+    "rtt_noise_scale": [0.5, 1.5],
+    "explanation_cost_scale": [0.8, 1.25],
+    "service_capacity_multiplier": [0.85, 1.15],
+    "detection_matrix_noise": [0.1, 0.3],
+    "burstiness_scale": [0.75, 1.5]
+  },
+  "base": {
+    "packet_arrival_rate": 45.0,
+    "packet_service_rate": 52.0,
+    "packet_buffer_capacity": 240.0,
+    "alert_probability": 0.15,
+    "local_explanation_budget": 18.0,
+    "exposure_budget_total": 18000.0,
+    "threshold": 0.72
+  }
+}

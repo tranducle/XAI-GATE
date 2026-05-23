@@ -1,0 +1,8 @@
+regime,variant,note,hr_coverage,debt,exposure_use,violation,drop
+adversarial_explanation_flood,high_local_budget,"fixed exposure, larger local capacity",0.6992642617085771,3382.6022425869696,1.0,0.0,0.0
+adversarial_explanation_flood,suspicion_strict,"fixed exposure, stricter suspicion",0.6885602323813389,4090.534333988258,1.0,0.0,0.0
+adversarial_explanation_flood,exposure_strict,"fixed exposure, stricter exposure weight",0.6855124400625198,4169.374537138614,1.0,0.0,0.0
+adversarial_explanation_flood,high_exposure_budget,expanded exposure budget,0.7896685155924434,2794.0163339123187,0.9904805909093378,0.0,0.0
+transient_overload,balanced_coverage,"fixed exposure, balanced coverage",0.7660785633691856,3741.3981234577573,0.9996393888890056,0.0,0.24777832478244743
+non_markovian,suspicion_strict,"fixed exposure, stricter suspicion",0.7717558441325665,593.084526743858,0.9322201666667143,0.0,0.13696045659870137
+rtt_uncertainty,balanced_coverage,"fixed exposure, balanced coverage",0.8725704272767448,5.937890695782962,0.8877499166666581,0.0,0.0

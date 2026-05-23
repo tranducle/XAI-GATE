@@ -1,0 +1,71 @@
+\begin{table*}[t]
+\centering
+\scriptsize
+\caption{XAI-SurfaceBench summary metrics. Each row reports the seed mean; confidence intervals are available in the CSV artifacts.}
+\begin{tabular}{lllrrrrrr}
+\toprule
+Regime & Policy & Variant & Seeds & Drop & Cov. & HR Cov. & Debt & Exposure \\
+\midrule
+adversarial\_explanation\_flood & always\_explain & budget\_10.0\_exposure\_10000 & 20 & 0.0000 & 1.0000 & 1.0000 & 0.0000 & 5.1606 \\
+adversarial\_explanation\_flood & budget\_only\_bexgov & budget\_10.0\_exposure\_10000 & 20 & 0.0000 & 0.4663 & 0.7049 & 8430.6519 & 1.0756 \\
+adversarial\_explanation\_flood & fifo\_explanation & budget\_10.0\_exposure\_10000 & 20 & 0.0000 & 0.8802 & 0.7670 & 5298.2300 & 4.5465 \\
+adversarial\_explanation\_flood & never\_explain & budget\_10.0\_exposure\_10000 & 20 & 0.0000 & 0.0000 & 0.0000 & 20133.5129 & 0.0000 \\
+adversarial\_explanation\_flood & rate\_limited & budget\_10.0\_exposure\_10000 & 20 & 0.0000 & 0.6167 & 0.8767 & 7561.3611 & 2.5388 \\
+adversarial\_explanation\_flood & static\_coarse\_full & budget\_10.0\_exposure\_10000 & 20 & 0.0000 & 0.5785 & 0.8846 & 6063.1852 & 2.4966 \\
+adversarial\_explanation\_flood & static\_offload & budget\_10.0\_exposure\_10000 & 20 & 0.0000 & 0.5342 & 0.7521 & 3768.9011 & 2.9115 \\
+adversarial\_explanation\_flood & threshold\_explain & budget\_10.0\_exposure\_10000 & 20 & 0.0000 & 0.5783 & 0.8845 & 6080.0973 & 2.4985 \\
+adversarial\_explanation\_flood & xai\_gate & budget\_10.0\_exposure\_10000 & 20 & 0.0000 & 0.3336 & 0.3728 & 9221.2268 & 1.0000 \\
+bursty & always\_explain & budget\_10.0\_exposure\_10000 & 20 & 0.1648 & 1.0000 & 1.0000 & 0.0000 & 3.7126 \\
+bursty & budget\_only\_bexgov & budget\_10.0\_exposure\_10000 & 20 & 0.1618 & 0.3753 & 0.7294 & 3842.4423 & 0.9040 \\
+bursty & fifo\_explanation & budget\_10.0\_exposure\_10000 & 20 & 0.1631 & 0.7817 & 0.5669 & 3679.0021 & 2.8981 \\
+bursty & never\_explain & budget\_10.0\_exposure\_10000 & 20 & 0.1599 & 0.0000 & 0.0000 & 10191.1993 & 0.0000 \\
+bursty & rate\_limited & budget\_10.0\_exposure\_10000 & 20 & 0.1623 & 0.5006 & 0.7945 & 4276.6822 & 1.2742 \\
+bursty & static\_coarse\_full & budget\_10.0\_exposure\_10000 & 20 & 0.1626 & 0.4273 & 0.8140 & 2981.2913 & 1.2175 \\
+bursty & static\_offload & budget\_10.0\_exposure\_10000 & 20 & 0.1610 & 0.3982 & 0.6964 & 1977.0882 & 1.4065 \\
+bursty & threshold\_explain & budget\_10.0\_exposure\_10000 & 20 & 0.1624 & 0.4274 & 0.8132 & 2977.9086 & 1.2145 \\
+bursty & xai\_gate & budget\_10.0\_exposure\_10000 & 20 & 0.1622 & 0.4865 & 0.5613 & 1486.6137 & 1.0001 \\
+poisson & always\_explain & budget\_10.0\_exposure\_10000 & 20 & 0.0000 & 1.0000 & 1.0000 & 0.0000 & 2.8695 \\
+poisson & budget\_only\_bexgov & budget\_10.0\_exposure\_10000 & 20 & 0.0000 & 0.3652 & 0.7381 & 902.9181 & 0.6979 \\
+poisson & fifo\_explanation & budget\_10.0\_exposure\_10000 & 20 & 0.0000 & 0.9945 & 0.9849 & 0.1396 & 2.8520 \\
+poisson & never\_explain & budget\_10.0\_exposure\_10000 & 20 & 0.0000 & 0.0000 & 0.0000 & 5449.1699 & 0.0000 \\
+poisson & rate\_limited & budget\_10.0\_exposure\_10000 & 20 & 0.0000 & 0.5867 & 0.8098 & 1.3511 & 0.9666 \\
+poisson & static\_coarse\_full & budget\_10.0\_exposure\_10000 & 20 & 0.0000 & 0.3850 & 0.7854 & 625.8875 & 0.8186 \\
+poisson & static\_offload & budget\_10.0\_exposure\_10000 & 20 & 0.0000 & 0.3600 & 0.6746 & 19.3113 & 0.9454 \\
+poisson & threshold\_explain & budget\_10.0\_exposure\_10000 & 20 & 0.0000 & 0.3856 & 0.7861 & 594.1710 & 0.8191 \\
+poisson & xai\_gate & budget\_10.0\_exposure\_10000 & 20 & 0.0000 & 0.6157 & 0.7367 & 4.6202 & 0.8369 \\
+adversarial\_explanation\_flood & always\_explain & budget\_10.0\_exposure\_18000 & 20 & 0.0000 & 1.0000 & 1.0000 & 0.0000 & 2.8643 \\
+adversarial\_explanation\_flood & budget\_only\_bexgov & budget\_10.0\_exposure\_18000 & 20 & 0.0000 & 0.4990 & 0.7700 & 7690.7596 & 0.9164 \\
+adversarial\_explanation\_flood & fifo\_explanation & budget\_10.0\_exposure\_18000 & 20 & 0.0000 & 0.8804 & 0.7673 & 5294.1519 & 2.5225 \\
+adversarial\_explanation\_flood & never\_explain & budget\_10.0\_exposure\_18000 & 20 & 0.0000 & 0.0000 & 0.0000 & 20121.1264 & 0.0000 \\
+adversarial\_explanation\_flood & rate\_limited & budget\_10.0\_exposure\_18000 & 20 & 0.0000 & 0.6173 & 0.8770 & 7542.5611 & 1.4102 \\
+adversarial\_explanation\_flood & static\_coarse\_full & budget\_10.0\_exposure\_18000 & 20 & 0.0000 & 0.5790 & 0.8846 & 6074.2346 & 1.3891 \\
+adversarial\_explanation\_flood & static\_offload & budget\_10.0\_exposure\_18000 & 20 & 0.0000 & 0.5337 & 0.7521 & 3780.7000 & 1.6165 \\
+adversarial\_explanation\_flood & threshold\_explain & budget\_10.0\_exposure\_18000 & 20 & 0.0000 & 0.5787 & 0.8846 & 6063.3832 & 1.3867 \\
+adversarial\_explanation\_flood & xai\_gate & budget\_10.0\_exposure\_18000 & 20 & 0.0000 & 0.5901 & 0.6562 & 4118.5657 & 1.0000 \\
+bursty & always\_explain & budget\_10.0\_exposure\_18000 & 20 & 0.1652 & 1.0000 & 1.0000 & 0.0000 & 2.0659 \\
+bursty & budget\_only\_bexgov & budget\_10.0\_exposure\_18000 & 20 & 0.1622 & 0.3795 & 0.7457 & 3843.1640 & 0.5544 \\
+bursty & fifo\_explanation & budget\_10.0\_exposure\_18000 & 20 & 0.1628 & 0.7812 & 0.5656 & 3721.1848 & 1.6149 \\
+bursty & never\_explain & budget\_10.0\_exposure\_18000 & 20 & 0.1601 & 0.0000 & 0.0000 & 10238.1051 & 0.0000 \\
+bursty & rate\_limited & budget\_10.0\_exposure\_18000 & 20 & 0.1620 & 0.5013 & 0.7953 & 4279.3567 & 0.7089 \\
+bursty & static\_coarse\_full & budget\_10.0\_exposure\_18000 & 20 & 0.1623 & 0.4276 & 0.8136 & 2980.5054 & 0.6760 \\
+bursty & static\_offload & budget\_10.0\_exposure\_18000 & 20 & 0.1614 & 0.3983 & 0.6964 & 1970.2764 & 0.7816 \\
+bursty & threshold\_explain & budget\_10.0\_exposure\_18000 & 20 & 0.1626 & 0.4277 & 0.8136 & 2980.3583 & 0.6763 \\
+bursty & xai\_gate & budget\_10.0\_exposure\_18000 & 20 & 0.1619 & 0.6639 & 0.7705 & 305.0532 & 0.9351 \\
+poisson & always\_explain & budget\_10.0\_exposure\_18000 & 20 & 0.0000 & 1.0000 & 1.0000 & 0.0000 & 1.5916 \\
+poisson & budget\_only\_bexgov & budget\_10.0\_exposure\_18000 & 20 & 0.0000 & 0.3654 & 0.7384 & 889.1421 & 0.3879 \\
+poisson & fifo\_explanation & budget\_10.0\_exposure\_18000 & 20 & 0.0000 & 0.9946 & 0.9851 & 0.1316 & 1.5828 \\
+poisson & never\_explain & budget\_10.0\_exposure\_18000 & 20 & 0.0000 & 0.0000 & 0.0000 & 5472.7413 & 0.0000 \\
+poisson & rate\_limited & budget\_10.0\_exposure\_18000 & 20 & 0.0000 & 0.5881 & 0.8114 & 1.4017 & 0.5415 \\
+poisson & static\_coarse\_full & budget\_10.0\_exposure\_18000 & 20 & 0.0000 & 0.3849 & 0.7852 & 624.5923 & 0.4546 \\
+poisson & static\_offload & budget\_10.0\_exposure\_18000 & 20 & 0.0000 & 0.3601 & 0.6746 & 18.9906 & 0.5256 \\
+poisson & threshold\_explain & budget\_10.0\_exposure\_18000 & 20 & 0.0000 & 0.3851 & 0.7862 & 606.8408 & 0.4549 \\
+poisson & xai\_gate & budget\_10.0\_exposure\_18000 & 20 & 0.0000 & 0.6472 & 0.7741 & 1.1714 & 0.6622 \\
+adversarial\_explanation\_flood & always\_explain & budget\_10.0\_exposure\_26000 & 20 & 0.0000 & 1.0000 & 1.0000 & 0.0000 & 1.9879 \\
+adversarial\_explanation\_flood & budget\_only\_bexgov & budget\_10.0\_exposure\_26000 & 20 & 0.0000 & 0.5142 & 0.8024 & 7655.4568 & 0.7452 \\
+adversarial\_explanation\_flood & fifo\_explanation & budget\_10.0\_exposure\_26000 & 20 & 0.0000 & 0.8801 & 0.7666 & 5323.4582 & 1.7480 \\
+adversarial\_explanation\_flood & never\_explain & budget\_10.0\_exposure\_26000 & 20 & 0.0000 & 0.0000 & 0.0000 & 20107.7428 & 0.0000 \\
+adversarial\_explanation\_flood & rate\_limited & budget\_10.0\_exposure\_26000 & 20 & 0.0000 & 0.6170 & 0.8768 & 7536.3335 & 0.9748 \\
+adversarial\_explanation\_flood & static\_coarse\_full & budget\_10.0\_exposure\_26000 & 20 & 0.0000 & 0.5783 & 0.8846 & 6083.7721 & 0.9610 \\
+\bottomrule
+\end{tabular}
+\end{table*}
