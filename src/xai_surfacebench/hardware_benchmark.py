@@ -37,7 +37,7 @@ def select_deterministic_rows(frame: pd.DataFrame, *, source_file: str, count: i
     selected = [index for _, index in sorted(ranked)[: max(0, int(count))]]
     out = frame.iloc[selected].copy().reset_index(drop=True)
     out.insert(0, "record_id", [hashlib.sha256(f"{source_file}|{index}".encode("utf-8")).hexdigest() for index in selected])
-    return out[["record_id", *features]]
+    return out[["record_id", *FEATURES]]
 
 
 def build_measured_compute_profile(median_ms: Mapping[str, float], *, full_measurement: str) -> dict[str, dict[str, float]]:
