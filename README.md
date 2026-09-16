@@ -1,114 +1,78 @@
-# Explanation-Surface Governance in XAI-Enabled Network Intrusion Detection under Resource Constraints
+# XAI-Gate and XAI-SurfaceBench
 
-This repository contains the official, reproducible open-source implementation of **XAI-Gate** and the **XAI-SurfaceBench** evaluation framework.
+This repository provides the public research implementation of **XAI-Gate**, a detector-agnostic service-governance layer for explainable network intrusion detection, together with **XAI-SurfaceBench**, the evaluation framework used to study explanation service behavior under finite capacity, adversarial explanation demand, uncertainty, and resource constraints.
 
-XAI-Gate is a detector-agnostic online service-governance framework that dynamically manages the explanation surface in Explainable AI (XAI)-enabled network intrusion detection systems. It balances packet forwarding QoS, explanation quality, explanation debt, and information exposure under severe resource limitations and adversarial explanation-demand inflation.
+XAI-Gate operates after alert generation. It does not replace the detector or explainer. The controller chooses among seven explanation-service actions: suppress, coarse explanation, delay, full local explanation, offload, audit-only logging, and redacted release.
 
----
+The exposure quantity used by the controller is a **configured governance-accounting proxy**. It is not a direct measurement or guarantee of real-world information leakage.
 
-## 🌟 Key Features
+## What is included
 
-*   **Detector-Agnostic Governance Layer:** Sits between any NIDS detector and the analyst-facing explanation interface, requiring zero re-training of classification or post-hoc explanation models.
-*   **Dynamic Action Space:** Controls the explanation surface by dynamically selecting among 7 managed actions: *Suppress, Coarse, Delay, Full Local, Offload, Audit-only,* or *Redact*.
-*   **Stochastic State-Aware Policies:** Jointly reasons about packet queue pressure, explanation backlog debt, offload RTT belief, suspicion of explanation-demand inflation, and remaining cumulative exposure budgets.
-*   **XAI-SurfaceBench Stress-Test Suite:** Benchmarks and stress-tests policies across 9 distinct traffic and uncertainty regimes using calibrated real-world score streams.
+The current public release contains code and configurations for:
 
----
+- the multi-regime XAI-SurfaceBench benchmark;
+- adversarial explanation-demand sweeps and service-frontier sweeps;
+- mechanism ablations and action-profile sensitivity;
+- public calibrated score-stream anchors for KDDCup99, UNSW-NB15, de-duplicated UNSW-NB15, and TON_IoT;
+- XAI-Gate and baseline tuning-envelope studies;
+- literature-grounded selective-explanation and resource-aware operational comparisons;
+- timestamp-preserving CICIoT2023 replay with chronological and shuffled-order controls;
+- estimator-mismatch robustness with fixed realization profiles;
+- physical and resource-constrained ARM64 explanation timing utilities;
+- hardware-calibrated temporal replay;
+- statistical effect-size follow-up, action-profile microbenchmarking, and debt/backlog diagnostics.
 
-## 📂 Project Structure
+Raw datasets, generated result files, manuscript files, manuscript figures, editorial-response materials, local workspace metadata, and machine-specific paths are intentionally excluded.
 
-```
+## Repository layout
+
+```text
 .
-├── README.md                           # Main documentation
-├── .gitignore                          # Git exclude rules
-├── requirements.txt                    # Python dependencies
-├── xai_gate_simulator.py               # Prototype reference simulator
-├── calibration_training_pipeline.py    # Optional calibration model utility
-├── xai_surfacebench/                   # Main reproducible benchmark package
-│   ├── README.md                       # SurfaceBench documentation
-│   ├── configs/                        # Reproducible JSON experiment definitions
-│   ├── data/                           # Calibrated score-stream calibration anchors
-│   ├── scripts/                        # Sanity, benchmark execution, and figure generation scripts
-│   ├── results/                        # Raw and aggregated benchmark results
-│   ├── tables/                         # Generated LaTeX tables for manuscript integration
-│   └── figures/                        # Generated PDF diagnostics and subplots
+├── README.md
+├── DATA.md
+├── REPRODUCIBILITY.md
+├── LICENSE
+├── requirements.txt
+├── pyproject.toml
+├── configs/          # Public experiment configurations
+├── docs/             # Experiment catalog and reference outputs
+├── experiments/      # Benchmark and analysis entry points
+├── scripts/          # Dataset preparation and calibration utilities
+├── src/xai_surfacebench/
+└── tests/
 ```
 
----
-
-## 🚀 Installation & Setup
-
-1.  **Clone the Repository:**
-    ```bash
-    git clone https://github.com/tranducle/XAI-GATE.git
-    cd XAI-GATE
-    ```
-
-2.  **Set Up a Virtual Environment (Recommended):**
-    ```bash
-    python3 -m venv venv
-    source venv/bin/activate
-    ```
-
-3.  **Install Dependencies:**
-    ```bash
-    pip install --upgrade pip
-    pip install -r requirements.txt
-    ```
-
----
-
-## 📊 Reproducing Manuscript Results
-
-To reproduce all numerical results, ablation studies, and diagnostic figures presented in the paper, execute the following command sequence from the `xai_surfacebench` directory:
+## Quick start
 
 ```bash
-cd xai_surfacebench
-
-# 1. Run sanity verification to validate metrics and invariants
-python3 scripts/sanity_check.py
-
-# 2. Run the main 9-policy multi-regime benchmark suite
-python3 scripts/run_benchmark.py --config configs/main.json
-
-# 3. Run the adversarial demand-inflation sweeps
-python3 scripts/run_benchmark.py --config configs/demand_sweep.json
-
-# 4. Run the multi-objective Pareto frontier sweeps
-python3 scripts/run_benchmark.py --config configs/frontier.json
-
-# 5. Run the core mechanism ablation studies
-python3 scripts/run_benchmark.py --config configs/ablations.json
-
-# 6. Run the comprehensive robustness sweeps
-python3 scripts/run_benchmark.py --config configs/robustness.json
-
-# 7. Generate and polish all typeset figures and plots
-python3 scripts/make_figures.py
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+python -m pip install -e .
+python -m pytest -q
 ```
 
-Generated plots will be saved in `xai_surfacebench/figures/` (including the multi-objective frontiers and ablation diagnostics), and LaTeX typeset tables will be populated under `xai_surfacebench/tables/` ready for publication.
+Run the deterministic sanity check:
 
----
+```bash
+python experiments/sanity_check.py
+```
 
-## 📈 Dataset Calibration & Provenance
+Run the main benchmark:
 
-The score streams and confusion matrices used to calibrate the simulator are derived from the following public datasets:
+```bash
+python experiments/run_benchmark.py --config configs/main_benchmark.json
+```
 
-1.  **UNSW-NB15 Dataset:**
-    *   *Source:* [UNSW Canberra Cyber Projects](https://research.unsw.edu.au/projects/unsw-nb15-dataset)
-    *   *Usage:* Anchors our modern NIDS score distributions. Includes a de-duplicated calibration stream that eliminates redundant feature rows to prevent train-test overlapping bias.
-2.  **TON_IoT Dataset:**
-    *   *Source:* [TON_IoT Telemetry Datasets](https://research.unsw.edu.au/projects/toniot-datasets)
-    *   *Usage:* Calibrates score distributions under IoT-telemetry and edge forwarding limits.
-3.  **KDD Cup 99 Dataset:**
-    *   *Source:* [UCI KDD Archive](http://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html)
-    *   *Usage:* Provides a baseline legacy no-training score proxy.
+Runtime artifacts are written to ignored directories such as `results/`, `logs/`, `tables/`, `figures/`, and `data/`. They are not part of the public source release.
 
-For custom score streams, format CSV logs with `score` (or `calibrated_score`) and `label` (or `true_label`) columns, and configure the path mapping inside `xai_surfacebench/configs/`.
+For the complete evaluation workflow, see [REPRODUCIBILITY.md](REPRODUCIBILITY.md). For dataset provenance and acquisition boundaries, see [DATA.md](DATA.md).
 
----
+## Reproducibility boundary
 
-## ⚖️ License
+The benchmark code fixes experiment seeds and configuration parameters for the documented runs. Public-dataset workflows may require network access and can change in runtime if an upstream host changes file availability or packaging. Hardware timing is inherently platform-specific; the included hardware utilities are intended to reproduce the measurement protocol rather than promise identical latency on different machines.
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+## License
+
+MIT License. See [LICENSE](LICENSE).
