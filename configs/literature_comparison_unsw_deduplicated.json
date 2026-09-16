@@ -1,0 +1,10 @@
+{
+  "name": "literature_comparison_unsw_deduplicated",
+  "experiment_type": "standard",
+  "slots": 5000,
+  "seeds": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
+  "policies": ["xai_gate","selective_explanations_adapted","resource_aware_offload_adapted"],
+  "regimes": ["adversarial_explanation_flood"],
+  "base": {"packet_arrival_rate":45.0,"packet_service_rate":52.0,"packet_buffer_capacity":240.0,"alert_probability":0.15,"local_explanation_budget":18.0,"exposure_budget_total":18000.0,"threshold":0.72},
+  "calibration": {"score_stream_path":"../data/unsw_nb15_deduplicated_score_stream.csv","training_summary_path":"../data/unsw_nb15_deduplicated_calibration_summary.json"}
+}

@@ -1,5 +1,49 @@
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environments
+.venv/
+venv/
+env/
+
+# Runtime research artifacts
+/data/
+/results/
+/logs/
+/tables/
+/figures/
+/docs/generated/
+*.csv
+*.tsv
+*.parquet
+*.feather
+*.joblib
+*.pkl
+*.pickle
+*.npz
+*.npy
+*.pt
+*.pth
+*.onnx
+
+# Manuscript and rendered media are intentionally excluded
+*.tex
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.tif
+*.tiff
+*.docx
+
+# Local tooling and editor state
 .DS_Store
-texput.log
-xai_surfacebench/logs/
+.idea/
+.vscode/
+.env
+.env.*

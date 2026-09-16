@@ -1,0 +1,6 @@
+{
+  "physical_m2": {"lime":{"median_ms":1.552,"p95_ms":2.869},"kernelshap":{"median_ms":3.847,"p95_ms":5.161}},
+  "arm64_2cpu_4gib": {"kernelshap":{"p95_ms":6.071}},
+  "arm64_0_5cpu_1gib": {"kernelshap":{"p95_ms":54.885,"throttled_period_fraction":0.989}},
+  "notes": "Reference measurements for the documented evaluation. Timing is platform-specific. Offload timing covers local request packaging and excludes network RTT."
+}

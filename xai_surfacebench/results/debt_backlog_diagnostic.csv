@@ -1,6 +1,0 @@
-scenario,item_count,risk_bucket,action,coverage,explanation_debt,debt_per_item
-"same count, low-risk delayed",100,low,delay,0.0,102.80000000000001,1.028
-"same count, critical delayed",100,critical,delay,0.0,165.10000000000002,1.6510000000000002
-"same count, high-risk coarse",100,high,coarse,0.45,62.7,0.627
-"same count, high-risk audit",100,high,audit,0.72,31.92,0.31920000000000004
-"same count, full explanation",100,critical,full,1.0,0.0,0.0

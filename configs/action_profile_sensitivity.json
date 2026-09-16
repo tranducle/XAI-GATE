@@ -1,0 +1,229 @@
+{
+  "base": {
+    "alert_probability": 0.15,
+    "exposure_budget_total": 18000.0,
+    "local_explanation_budget": 18.0,
+    "packet_arrival_rate": 45.0,
+    "packet_buffer_capacity": 240.0,
+    "packet_service_rate": 52.0,
+    "threshold": 0.72
+  },
+  "calibration": {
+    "score_stream_path": "",
+    "training_summary_path": ""
+  },
+  "experiment_type": "custom_variants",
+  "name": "action_profile_sensitivity",
+  "policies": [
+    "xai_gate"
+  ],
+  "regimes": [
+    "adversarial_explanation_flood",
+    "transient_overload",
+    "non_markovian",
+    "rtt_uncertainty"
+  ],
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20
+  ],
+  "slots": 5000,
+  "variants": [
+    {
+      "name": "profile_default",
+      "policies": [
+        "xai_gate"
+      ]
+    },
+    {
+      "action_profile_overrides": {
+        "full": {
+          "exposure": 0.6
+        }
+      },
+      "name": "full_exposure_low",
+      "policies": [
+        "xai_gate"
+      ]
+    },
+    {
+      "action_profile_overrides": {
+        "full": {
+          "exposure": 1.1
+        }
+      },
+      "name": "full_exposure_high",
+      "policies": [
+        "xai_gate"
+      ]
+    },
+    {
+      "action_profile_overrides": {
+        "offload": {
+          "exposure": 0.75
+        }
+      },
+      "name": "offload_exposure_low",
+      "policies": [
+        "xai_gate"
+      ]
+    },
+    {
+      "action_profile_overrides": {
+        "offload": {
+          "exposure": 1.2
+        }
+      },
+      "name": "offload_exposure_high",
+      "policies": [
+        "xai_gate"
+      ]
+    },
+    {
+      "action_profile_overrides": {
+        "offload": {
+          "delay": 0.9
+        }
+      },
+      "name": "offload_delay_low",
+      "policies": [
+        "xai_gate"
+      ]
+    },
+    {
+      "action_profile_overrides": {
+        "offload": {
+          "delay": 1.8
+        }
+      },
+      "name": "offload_delay_high",
+      "policies": [
+        "xai_gate"
+      ]
+    },
+    {
+      "action_profile_overrides": {
+        "coarse": {
+          "coverage": 0.35,
+          "high_risk_coverage": 0.3
+        }
+      },
+      "name": "coarse_coverage_low",
+      "policies": [
+        "xai_gate"
+      ]
+    },
+    {
+      "action_profile_overrides": {
+        "coarse": {
+          "coverage": 0.6,
+          "high_risk_coverage": 0.5
+        }
+      },
+      "name": "coarse_coverage_high",
+      "policies": [
+        "xai_gate"
+      ]
+    },
+    {
+      "action_profile_overrides": {
+        "redact": {
+          "exposure": 0.04
+        }
+      },
+      "name": "redact_exposure_low",
+      "policies": [
+        "xai_gate"
+      ]
+    },
+    {
+      "action_profile_overrides": {
+        "redact": {
+          "exposure": 0.18
+        }
+      },
+      "name": "redact_exposure_high",
+      "policies": [
+        "xai_gate"
+      ]
+    },
+    {
+      "action_profile_overrides": {
+        "audit": {
+          "coverage": 0.58,
+          "high_risk_coverage": 0.66
+        }
+      },
+      "name": "audit_coverage_low",
+      "policies": [
+        "xai_gate"
+      ]
+    },
+    {
+      "action_profile_overrides": {
+        "audit": {
+          "coverage": 0.84,
+          "high_risk_coverage": 0.9
+        }
+      },
+      "name": "audit_coverage_high",
+      "policies": [
+        "xai_gate"
+      ]
+    },
+    {
+      "base": {
+        "debt_increment_scale": 0.75
+      },
+      "name": "debt_scale_low",
+      "policies": [
+        "xai_gate"
+      ]
+    },
+    {
+      "base": {
+        "debt_increment_scale": 1.25
+      },
+      "name": "debt_scale_high",
+      "policies": [
+        "xai_gate"
+      ]
+    },
+    {
+      "base": {
+        "explanation_cost_scale": 0.8
+      },
+      "name": "cost_scale_low",
+      "policies": [
+        "xai_gate"
+      ]
+    },
+    {
+      "base": {
+        "explanation_cost_scale": 1.25
+      },
+      "name": "cost_scale_high",
+      "policies": [
+        "xai_gate"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xai-surfacebench"
+version = "0.2.0"
+description = "XAI-Gate explanation-surface governance and XAI-SurfaceBench evaluation framework"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+  {name = "Tran Duc Le"},
+  {name = "Truong Duy Dinh"},
+  {name = "Phuc Hao Do"},
+  {name = "Van Dai Pham"},
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

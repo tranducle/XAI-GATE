@@ -1,0 +1,55 @@
+{
+  "ablations": [
+    "default",
+    "no_debt",
+    "no_exposure_budget",
+    "no_offload",
+    "no_suspicion",
+    "no_fidelity_control",
+    "threshold_only_scoring",
+    "no_rtt_robustness"
+  ],
+  "base": {
+    "alert_probability": 0.15,
+    "exposure_budget_total": 18000.0,
+    "local_explanation_budget": 18.0,
+    "packet_arrival_rate": 45.0,
+    "packet_buffer_capacity": 240.0,
+    "packet_service_rate": 52.0,
+    "threshold": 0.72
+  },
+  "experiment_type": "ablations",
+  "name": "ablation_study",
+  "policies": [
+    "xai_gate"
+  ],
+  "regimes": [
+    "adversarial_explanation_flood",
+    "transient_overload",
+    "non_markovian",
+    "rtt_uncertainty"
+  ],
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20
+  ],
+  "slots": 5000
+}
