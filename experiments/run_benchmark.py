@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run an XAI-SurfaceBench JSON configuration."""
+"""Run an XAI-SurfaceBench experiment config and write CSV/JSON/TeX/log artifacts."""
 
 from __future__ import annotations
 
@@ -10,21 +10,20 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from xai_surfacebench.core import load_json, run_experiment, write_outputs
-from xai_surfacebench.extensions import install_policy_extensions
+from xai_surfacebench.core import load_json, run_experiment, write_outputs  # noqa: E402
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--config", required=True, type=Path)
-    parser.add_argument("--output-root", type=Path, default=ROOT)
+    parser.add_argument("--config", required=True, type=Path, help="Path to a JSON experiment config.")
+    parser.add_argument("--output-root", default=ROOT, type=Path, help="Package output root.")
     args = parser.parse_args()
-    install_policy_extensions()
+
     config_path = args.config.resolve()
     config = load_json(config_path)
-    rows = run_experiment(config, config_path.parent)
-    paths = write_outputs(rows, config, args.output_root.resolve())
-    print(f"runs={len(rows)}")
+    results = run_experiment(config, config_path.parent)
+    paths = write_outputs(results, config, args.output_root.resolve())
+    print(f"runs={len(results)}")
     for label, path in paths.items():
         print(f"{label}={path}")
     return 0

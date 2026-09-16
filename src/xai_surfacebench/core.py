@@ -29,6 +29,11 @@ MANDATORY_POLICIES = [
     "xai_gate",
 ]
 
+SOTA_ADAPTED_POLICIES = [
+    "selective_explanations_adapted",
+    "resource_aware_offload_adapted",
+]
+
 MANDATORY_REGIMES = [
     "poisson",
     "bursty",
@@ -185,6 +190,11 @@ DEFAULT_BASE = {
     "rate_limit_quota": 10.0,
     "fifo_service_quota": 12.0,
     "bexgov_pressure_threshold": 0.72,
+    "selective_alpha": 0.80,
+    "resource_offload_pressure_threshold": 0.65,
+    "resource_offload_rtt_max": 0.30,
+    "resource_high_threshold": 0.68,
+    "resource_medium_threshold": 0.42,
     "burstiness_scale": 1.0,
     "rtt_noise_scale": 1.0,
     "detection_matrix_noise": 0.0,
@@ -204,6 +214,13 @@ DEFAULT_XAI_GATE_WEIGHTS = {
     "suspicion": 0.90,
     "packet_pressure": 0.60,
     "rtt": 0.75,
+}
+
+DEFAULT_ESTIMATION_MULTIPLIERS = {
+    "compute": 1.0,
+    "exposure": 1.0,
+    "debt": 1.0,
+    "rtt": 1.0,
 }
 
 
@@ -273,6 +290,55 @@ def action_profiles_for(config: Mapping[str, Any], variant: Mapping[str, Any]) -
                     raise ValueError(f"Unknown profile field {key} for action {action}")
                 profiles[action][key] = float(value)
     return profiles
+
+
+def estimation_multipliers_for(variant: Mapping[str, Any]) -> Dict[str, float]:
+    """Return validated controller-estimation multipliers."""
+
+    multipliers = dict(DEFAULT_ESTIMATION_MULTIPLIERS)
+    supplied = variant.get("estimation_multipliers", {})
+    if supplied:
+        if not isinstance(supplied, Mapping):
+            raise ValueError("estimation_multipliers must be a mapping")
+        unknown = set(supplied) - set(multipliers)
+        if unknown:
+            raise ValueError(f"Unknown estimation multiplier(s): {sorted(unknown)}")
+        for key, value in supplied.items():
+            parsed = float(value)
+            if not math.isfinite(parsed) or parsed <= 0.0:
+                raise ValueError(f"Estimation multiplier {key} must be finite and positive")
+            multipliers[key] = parsed
+    return multipliers
+
+
+def estimated_action_profiles(
+    realization_profiles: Mapping[str, Mapping[str, float]],
+    multipliers: Mapping[str, float],
+) -> Dict[str, Dict[str, float]]:
+    """Build controller-side action estimates without changing realization values."""
+
+    compute_multiplier = float(multipliers["compute"])
+    exposure_multiplier = float(multipliers["exposure"])
+    estimated = {action: dict(profile) for action, profile in realization_profiles.items()}
+    for profile in estimated.values():
+        profile["compute"] = float(profile["compute"]) * compute_multiplier
+        profile["exposure"] = float(profile["exposure"]) * exposure_multiplier
+    return estimated
+
+
+def budget_exceeded(value: float, budget: float) -> bool:
+    """Compare a cumulative value with its budget using a tiny floating-point tolerance."""
+
+    tolerance = max(1e-9, abs(float(budget)) * 1e-12)
+    return float(value) > float(budget) + tolerance
+
+
+def budget_overshoot(value: float, budget: float) -> float:
+    """Return meaningful positive budget overshoot, ignoring machine-precision residue."""
+
+    if not budget_exceeded(value, budget):
+        return 0.0
+    return max(0.0, float(value) - float(budget))
 
 
 def normalize_probs(probs: Mapping[str, float]) -> Dict[str, float]:
@@ -584,6 +650,44 @@ def choose_static_action(policy: str, score: float, state: SimulationState, base
     raise ValueError(f"Static chooser cannot handle policy: {policy}")
 
 
+def choose_resource_aware_action(
+    score: float,
+    state: SimulationState,
+    base: Mapping[str, float],
+    signals: Mapping[str, Any],
+    count: float,
+    action_profiles: Mapping[str, Mapping[str, float]],
+) -> str:
+    """Service-level edge/offload comparator adapted from resource-aware IDS literature.
+
+    The comparator intentionally does not observe explanation debt, cumulative
+    exposure, or adversarial suspicion. It uses only detector score, local
+    explanation pressure, and current RTT uncertainty.
+    """
+
+    medium_threshold = float(base["resource_medium_threshold"])
+    high_threshold = float(base["resource_high_threshold"])
+    if score < medium_threshold:
+        return "none"
+    if score < high_threshold:
+        return "coarse"
+
+    local_budget = max(float(base["local_explanation_budget"]), 1e-9)
+    full_local_cost = (
+        count
+        * float(action_profiles["full"]["compute"])
+        * float(base["explanation_cost_scale"])
+    )
+    projected_pressure = (state.slot_local_load + full_local_cost) / local_budget
+    rtt_uncertainty = float(signals["rtt_uncertainty"])
+    if (
+        projected_pressure >= float(base["resource_offload_pressure_threshold"])
+        and rtt_uncertainty <= float(base["resource_offload_rtt_max"])
+    ):
+        return "offload"
+    return "full"
+
+
 def choose_xai_gate_action(
     score: float,
     state: SimulationState,
@@ -669,10 +773,14 @@ def allocate_actions(
     flags: Mapping[str, bool],
     signals: Mapping[str, Any],
     action_profiles: Mapping[str, Mapping[str, float]],
+    controller_state: Optional[SimulationState] = None,
+    controller_action_profiles: Optional[Mapping[str, Mapping[str, float]]] = None,
 ) -> Dict[str, Dict[str, float]]:
     """Return nested action counts by bucket: {bucket: {action: count}}."""
 
     action_counts: Dict[str, Dict[str, float]] = {name: {} for name, _ in BUCKETS}
+    decision_state = controller_state if controller_state is not None else state
+    decision_profiles = controller_action_profiles if controller_action_profiles is not None else action_profiles
     if policy == "rate_limited":
         state.rate_tokens = min(float(base["rate_limit_quota"]) * 3.0, state.rate_tokens + float(base["rate_limit_quota"]))
     if policy == "fifo_explanation":
@@ -681,7 +789,7 @@ def allocate_actions(
     else:
         available = 0.0
 
-    planned_exposure = state.exposure_total
+    planned_exposure = decision_state.exposure_total
     exposure_budget = max(float(base["exposure_budget_total"]), 1e-9)
     hard_exposure_cap = bool(base.get("xai_gate_hard_exposure_cap", True)) and flags["enable_exposure_budget"]
 
@@ -690,6 +798,12 @@ def allocate_actions(
             return
         action_counts[bucket_name][action_name] = action_counts[bucket_name].get(action_name, 0.0) + count
         state.slot_local_load += count * action_profiles[action_name]["compute"] * float(base["explanation_cost_scale"])
+        if decision_state is not state:
+            decision_state.slot_local_load += (
+                count
+                * decision_profiles[action_name]["compute"]
+                * float(base["explanation_cost_scale"])
+            )
 
     def fallback_actions(score_value: float, preferred: str) -> List[str]:
         if not flags["enable_fidelity_control"]:
@@ -702,7 +816,7 @@ def allocate_actions(
             order = [preferred, "none", "delay"]
         deduped: List[str] = []
         for action_name in order:
-            if action_name in action_profiles and action_name not in deduped:
+            if action_name in decision_profiles and action_name not in deduped:
                 deduped.append(action_name)
         return deduped
 
@@ -712,14 +826,14 @@ def allocate_actions(
         nonlocal planned_exposure
         if not hard_exposure_cap:
             add_action(bucket_name, preferred, count)
-            planned_exposure += count * action_profiles[preferred]["exposure"]
+            planned_exposure += count * decision_profiles[preferred]["exposure"]
             return
 
         remaining_count = count
         for action_name in fallback_actions(score_value, preferred):
             if remaining_count <= 1e-12:
                 break
-            exposure_per_unit = float(action_profiles[action_name]["exposure"])
+            exposure_per_unit = float(decision_profiles[action_name]["exposure"])
             if exposure_per_unit <= 0.0:
                 take = remaining_count
             else:
@@ -760,12 +874,39 @@ def allocate_actions(
                 action_counts[bucket]["delay"] = action_counts[bucket].get("delay", 0.0) + delayed
             continue
         if policy == "xai_gate":
-            action = choose_xai_gate_action(score, state, base, weights, flags, signals, action_profiles)
+            action = choose_xai_gate_action(
+                score,
+                decision_state,
+                base,
+                weights,
+                flags,
+                signals,
+                decision_profiles,
+            )
             add_xai_gate_action_with_cap(bucket, score, action, remaining)
             continue
-        else:
-            action = choose_static_action(policy, score, state, base)
+        if policy == "selective_explanations_adapted":
+            alpha = min(1.0, max(0.0, float(base["selective_alpha"])))
+            coarse_count = remaining * alpha
+            full_count = remaining - coarse_count
+            add_action(bucket, "coarse", coarse_count)
+            add_action(bucket, "full", full_count)
+            continue
+        if policy == "resource_aware_offload_adapted":
+            action = choose_resource_aware_action(
+                score,
+                state,
+                base,
+                signals,
+                remaining,
+                action_profiles,
+            )
+            add_action(bucket, action, remaining)
+            continue
+        action = choose_static_action(policy, score, state, base)
         add_action(bucket, action, remaining)
+    if decision_state is not state and policy == "xai_gate":
+        decision_state.exposure_total = planned_exposure
     return action_counts
 
 
@@ -811,17 +952,31 @@ def simulate_run(
     regime: str,
     variant: Mapping[str, Any],
     calibration: CalibrationProfile,
+    collect_action_trace: bool = False,
 ) -> Dict[str, Any]:
     base = deep_merge(DEFAULT_BASE, config.get("base", {}))
     base = deep_merge(base, variant.get("base", {}))
     weights = deep_merge(DEFAULT_XAI_GATE_WEIGHTS, config.get("xai_gate_weights", {}))
     weights = deep_merge(weights, variant.get("xai_gate_weights", {}))
     action_profiles = action_profiles_for(config, variant)
+    estimation_enabled = "estimation_multipliers" in variant
+    estimation_multipliers = estimation_multipliers_for(variant)
+    decision_action_profiles = (
+        estimated_action_profiles(action_profiles, estimation_multipliers)
+        if estimation_enabled
+        else action_profiles
+    )
     ablation = str(variant.get("ablation", "default"))
     flags = ablation_flags(ablation)
-    rng = random.Random(stable_seed(seed, config.get("name", "experiment"), policy, regime, variant.get("name", "default")))
+    workload_seed_group = variant.get("workload_seed_group", variant.get("name", "default"))
+    rng = random.Random(
+        stable_seed(seed, config.get("name", "experiment"), policy, regime, workload_seed_group)
+    )
     slots = int(config["slots"])
     state = SimulationState()
+    controller_state = SimulationState() if estimation_enabled else state
+    workload_hasher = hashlib.sha256()
+    action_trace: List[Dict[str, Dict[str, float]]] = []
     acc: Dict[str, float] = {
         "arrivals": 0.0,
         "dropped": 0.0,
@@ -845,13 +1000,59 @@ def simulate_run(
 
     for slot in range(slots):
         state.slot_local_load = 0.0
+        if controller_state is not state:
+            controller_state.packet_queue = state.packet_queue
+            controller_state.explanation_debt = (
+                state.explanation_debt * float(estimation_multipliers["debt"])
+            )
+            controller_state.slot_local_load = 0.0
         signals = regime_signals(regime, slot, slots, state, base, calibration, rng)
         packet_lambda = float(base["packet_arrival_rate"]) * float(signals["arrival_multiplier"])
         arrivals = sample_poisson(packet_lambda, rng)
         alerts = sample_binomial(arrivals, float(signals["alert_probability"]), rng)
         bucket_counts = sample_bucket_counts(alerts, signals["bucket_probs"], rng)
 
-        action_counts = allocate_actions(policy, bucket_counts, state, base, weights, flags, signals, action_profiles)
+        workload_hasher.update(
+            json.dumps(
+                {
+                    "slot": slot,
+                    "arrivals": arrivals,
+                    "alerts": alerts,
+                    "bucket_counts": bucket_counts,
+                    "suspicion": float(signals["suspicion"]),
+                    "rtt_uncertainty": float(signals["rtt_uncertainty"]),
+                },
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("utf-8")
+        )
+
+        decision_signals = signals
+        if estimation_enabled:
+            decision_signals = dict(signals)
+            decision_signals["rtt_uncertainty"] = (
+                float(signals["rtt_uncertainty"]) * float(estimation_multipliers["rtt"])
+            )
+
+        action_counts = allocate_actions(
+            policy,
+            bucket_counts,
+            state,
+            base,
+            weights,
+            flags,
+            decision_signals,
+            action_profiles,
+            controller_state=controller_state if estimation_enabled else None,
+            controller_action_profiles=decision_action_profiles if estimation_enabled else None,
+        )
+        if collect_action_trace:
+            action_trace.append(
+                {
+                    bucket: {action: float(count) for action, count in sorted(actions.items())}
+                    for bucket, actions in action_counts.items()
+                }
+            )
         for bucket, actions in action_counts.items():
             for action, count in actions.items():
                 accumulate_action_metrics(
@@ -889,7 +1090,7 @@ def simulate_run(
         acc["debt_sum"] += state.explanation_debt
         if state.slot_local_load > float(base["local_explanation_budget"]):
             acc["budget_violation_slots"] += 1.0
-        if state.exposure_total > float(base["exposure_budget_total"]):
+        if budget_exceeded(state.exposure_total, float(base["exposure_budget_total"])):
             acc["exposure_violation_slots"] += 1.0
         acc["baseline_expected_alerts"] += arrivals * float(base["alert_probability"])
 
@@ -926,7 +1127,21 @@ def simulate_run(
         "alerts_per_slot": acc["alerts"] / slots,
         "packets_per_slot": acc["arrivals"] / slots,
         "calibration_status": calibration.status,
+        "workload_hash": workload_hasher.hexdigest(),
     }
+    if estimation_enabled:
+        metrics.update(
+            {
+                "estimate_compute_multiplier": float(estimation_multipliers["compute"]),
+                "estimate_exposure_multiplier": float(estimation_multipliers["exposure"]),
+                "estimate_debt_multiplier": float(estimation_multipliers["debt"]),
+                "estimate_rtt_multiplier": float(estimation_multipliers["rtt"]),
+                "estimated_exposure_use": controller_state.exposure_total / exposure_budget,
+                "actual_exposure_overshoot": budget_overshoot(state.exposure_total, exposure_budget),
+            }
+        )
+    if collect_action_trace:
+        metrics["_action_trace"] = action_trace
     for key in PRIMARY_METRICS + SECONDARY_METRICS + ["alerts_per_slot", "packets_per_slot"]:
         value = metrics[key]
         if not math.isfinite(float(value)):

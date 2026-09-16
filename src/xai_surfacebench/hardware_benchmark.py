@@ -1,77 +1,160 @@
-"""Hardware-measurement utilities for explanation-service validation."""
-
 from __future__ import annotations
 
 import hashlib
-from typing import Any, Mapping, Sequence
+from collections.abc import Mapping
 
 import pandas as pd
 
-FEATURES = [
-    "flow_duration",
-    "Header_Length",
-    "Protocol Type",
-    "Duration",
-    "Rate",
-    "Srate",
-    "Drate",
-    "fin_flag_number",
-    "syn_flag_number",
-    "rst_flag_number",
-]
+FEATURES = (
+    "protocol",
+    "src_port",
+    "dst_port",
+    "packets",
+    "packets_rev",
+    "bytes",
+    "bytes_rev",
+    "tcp_flags",
+    "tcp_flags_rev",
+    "duration",
+)
+
+SIMULATOR_ACTIONS = ("none", "coarse", "full", "offload", "audit", "redact", "delay")
 
 
-def validate_feature_contract(frame: pd.DataFrame, features: Sequence[str] = FEATURES) -> None:
-    missing = [name for name in features if name not in frame.columns]
-    if missing:
-        raise ValueError(f"missing required predictor fields: {missing}")
+def stable_record_id(source_file: str, row_index: int) -> str:
+    payload = f"{source_file}\n{int(row_index)}".encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()[:16]
 
 
 def select_deterministic_rows(frame: pd.DataFrame, *, source_file: str, count: int) -> pd.DataFrame:
-    """Select rows by the smallest SHA-256 identifiers over source name and row index."""
-    validate_feature_contract(frame)
-    ranked = []
-    for index in range(len(frame)):
-        token = f"{source_file}|{index}".encode("utf-8")
-        ranked.append((hashlib.sha256(token).hexdigest(), index))
-    selected = [index for _, index in sorted(ranked)[: max(0, int(count))]]
-    out = frame.iloc[selected].copy().reset_index(drop=True)
-    out.insert(0, "record_id", [hashlib.sha256(f"{source_file}|{index}".encode("utf-8")).hexdigest() for index in selected])
-    return out[["record_id", *FEATURES]]
+    if count <= 0:
+        raise ValueError("count must be positive")
+    missing = [name for name in FEATURES if name not in frame.columns]
+    if missing:
+        raise ValueError(f"missing required predictor fields: {missing}")
+    if len(frame) < count:
+        raise ValueError(f"requested {count} rows from frame with only {len(frame)} rows")
+
+    candidates = []
+    for position in range(len(frame)):
+        record_id = stable_record_id(source_file, position)
+        candidates.append((record_id, position))
+    selected = sorted(candidates, key=lambda item: item[0])[:count]
+
+    rows = []
+    for record_id, position in selected:
+        source_row = frame.iloc[position]
+        row = {
+            "record_id": record_id,
+            "source_file": source_file,
+            "row_index": int(position),
+        }
+        for feature in FEATURES:
+            row[feature] = source_row[feature]
+        rows.append(row)
+    return pd.DataFrame(rows, columns=["record_id", "source_file", "row_index", *FEATURES])
 
 
-def build_measured_compute_profile(median_ms: Mapping[str, float], *, full_measurement: str) -> dict[str, dict[str, float]]:
-    """Normalize measured action latencies into the core compute-profile field."""
-    full = max(float(median_ms[full_measurement]), 1e-12)
-    mapping = {"none":"none", "coarse":"coarse", "full":full_measurement, "offload":"offload", "audit":"audit", "redact":"redact", "delay":"delay"}
-    return {action: {"compute": max(0.0, float(median_ms[source]) / full)} for action, source in mapping.items()}
+def build_measured_compute_profile(
+    medians_ms: Mapping[str, float], *, full_measurement: str
+) -> dict[str, dict[str, float]]:
+    if full_measurement not in medians_ms:
+        raise ValueError(f"missing full measurement {full_measurement!r}")
+    baseline = float(medians_ms[full_measurement])
+    if baseline <= 0:
+        raise ValueError("full-explainer median must be positive")
+
+    measurement_for_action = {
+        "coarse": "coarse",
+        "full": full_measurement,
+        "offload": "offload",
+        "audit": "audit",
+        "redact": "redact",
+    }
+    result: dict[str, dict[str, float]] = {
+        "none": {"compute": 0.0},
+        "delay": {"compute": 0.0},
+    }
+    for action, measurement in measurement_for_action.items():
+        if measurement not in medians_ms:
+            raise ValueError(f"missing measurement {measurement!r}")
+        value = float(medians_ms[measurement])
+        if value < 0:
+            raise ValueError(f"negative median for {measurement!r}")
+        result[action] = {"compute": value / baseline}
+    return {action: result[action] for action in SIMULATOR_ACTIONS}
 
 
-def capacity_overlay(action_trace: Sequence[Mapping[str, Mapping[str, float]]], p95_ms: Mapping[str, float], *, capacity_ms: float = 1000.0) -> dict[str, Any]:
-    """Convert action counts into one-worker service demand and overload statistics."""
-    demands = []
-    mapping = {"none":"none", "coarse":"coarse", "full":"full", "offload":"offload", "audit":"audit", "redact":"redact", "delay":"delay"}
+def slot_demand_ms(
+    action_counts: Mapping[str, float], p95_ms: Mapping[str, float]
+) -> float:
+    total = 0.0
+    for action, count in action_counts.items():
+        if action not in p95_ms:
+            raise ValueError(f"missing p95 latency for action {action!r}")
+        total += float(count) * float(p95_ms[action])
+    return total
+
+
+def redact_vector(values: list[float] | tuple[float, ...], indices: list[int] | tuple[int, ...]) -> list[float]:
+    result = [float(value) for value in values]
+    for index in indices:
+        if index < 0 or index >= len(result):
+            raise IndexError(index)
+        result[index] = 0.0
+    return result
+
+
+def build_offload_payload(values: list[float] | tuple[float, ...], *, score: float) -> bytes:
+    import gzip
+    import json
+
+    payload = {
+        "score": round(float(score), 6),
+        "features": [round(float(value), 5) for value in values],
+        "request": "remote_explanation",
+        "explainer": "managed_posthoc",
+    }
+    return gzip.compress(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8"), compresslevel=3)
+
+
+def capacity_overlay(
+    action_trace: list[dict[str, dict[str, float]]],
+    p95_ms: Mapping[str, float],
+    *,
+    capacity_ms: float = 1000.0,
+) -> dict[str, float | int]:
+    if capacity_ms <= 0:
+        raise ValueError("capacity_ms must be positive")
+    backlog = 0.0
+    max_backlog = 0.0
+    total_demand = 0.0
+    overload_slots = 0
+    consecutive = 0
+    max_consecutive = 0
     for slot in action_trace:
-        demand = 0.0
-        for counts in slot.values():
-            for action, count in counts.items():
-                demand += float(count) * float(p95_ms[mapping[action]])
-        demands.append(demand)
-    overload = [value > float(capacity_ms) for value in demands]
-    longest = current = 0
-    backlog = max_backlog = 0.0
-    for value, is_over in zip(demands, overload):
-        current = current + 1 if is_over else 0
-        longest = max(longest, current)
-        backlog = max(0.0, backlog + value - float(capacity_ms))
+        counts: dict[str, float] = {}
+        for bucket_actions in slot.values():
+            for action, count in bucket_actions.items():
+                counts[action] = counts.get(action, 0.0) + float(count)
+        demand = slot_demand_ms(counts, p95_ms)
+        total_demand += demand
+        if demand > capacity_ms:
+            overload_slots += 1
+            consecutive += 1
+            max_consecutive = max(max_consecutive, consecutive)
+        else:
+            consecutive = 0
+        backlog = max(0.0, backlog + demand - capacity_ms)
         max_backlog = max(max_backlog, backlog)
+    slots = len(action_trace)
     return {
-        "slots": len(demands),
-        "total_demand_ms": sum(demands),
-        "mean_demand_ms_per_slot": sum(demands) / max(len(demands), 1),
-        "overload_slots": sum(1 for value in overload if value),
-        "overload_slot_fraction": sum(1 for value in overload if value) / max(len(demands), 1),
-        "max_consecutive_overload_slots": longest,
+        "slots": slots,
+        "total_demand_ms": total_demand,
+        "mean_demand_ms_per_slot": total_demand / max(slots, 1),
+        "overload_slots": overload_slots,
+        "overload_slot_fraction": overload_slots / max(slots, 1),
+        "max_consecutive_overload_slots": max_consecutive,
         "final_work_backlog_ms": backlog,
         "max_work_backlog_ms": max_backlog,
     }

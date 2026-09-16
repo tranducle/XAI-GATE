@@ -1,17 +1,194 @@
 {
-  "name": "literature_comparison_tuned",
+  "base": {
+    "alert_probability": 0.15,
+    "exposure_budget_total": 18000.0,
+    "local_explanation_budget": 18.0,
+    "packet_arrival_rate": 45.0,
+    "packet_buffer_capacity": 240.0,
+    "packet_service_rate": 52.0,
+    "threshold": 0.72
+  },
   "experiment_type": "custom_variants",
+  "name": "literature_comparison_tuned",
+  "policies": [
+    "selective_explanations_adapted",
+    "resource_aware_offload_adapted",
+    "xai_gate"
+  ],
+  "regimes": [
+    "adversarial_explanation_flood",
+    "transient_overload",
+    "non_markovian",
+    "rtt_uncertainty"
+  ],
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20
+  ],
   "slots": 5000,
-  "seeds": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
-  "policies": ["xai_gate","selective_explanations_adapted","resource_aware_offload_adapted"],
-  "regimes": ["adversarial_explanation_flood"],
-  "base": {"packet_arrival_rate":45.0,"packet_service_rate":52.0,"packet_buffer_capacity":240.0,"alert_probability":0.15,"local_explanation_budget":18.0,"exposure_budget_total":18000.0,"threshold":0.72},
   "variants": [
-    {"name":"xai_default","policies":["xai_gate"]},
-    {"name":"xai_strict_exposure","policies":["xai_gate"],"xai_gate_weights":{"exposure":1.35}},
-    {"name":"selective_050","policies":["selective_explanations_adapted"],"base":{"selective_coarse_fraction":0.50}},
-    {"name":"selective_070","policies":["selective_explanations_adapted"],"base":{"selective_coarse_fraction":0.70}},
-    {"name":"resource_balanced","policies":["resource_aware_offload_adapted"],"base":{"resource_pressure_threshold":0.78,"resource_rtt_threshold":0.50}},
-    {"name":"resource_offload_early","policies":["resource_aware_offload_adapted"],"base":{"resource_pressure_threshold":0.62,"resource_rtt_threshold":0.65}}
+    {
+      "base": {
+        "selective_alpha": 0.5
+      },
+      "name": "sel_a050",
+      "policies": [
+        "selective_explanations_adapted"
+      ]
+    },
+    {
+      "base": {
+        "selective_alpha": 0.65
+      },
+      "name": "sel_a065",
+      "policies": [
+        "selective_explanations_adapted"
+      ]
+    },
+    {
+      "base": {
+        "selective_alpha": 0.8
+      },
+      "name": "sel_a080",
+      "policies": [
+        "selective_explanations_adapted"
+      ]
+    },
+    {
+      "base": {
+        "selective_alpha": 0.9
+      },
+      "name": "sel_a090",
+      "policies": [
+        "selective_explanations_adapted"
+      ]
+    },
+    {
+      "base": {
+        "selective_alpha": 0.95
+      },
+      "name": "sel_a095",
+      "policies": [
+        "selective_explanations_adapted"
+      ]
+    },
+    {
+      "base": {
+        "resource_offload_pressure_threshold": 0.35,
+        "resource_offload_rtt_max": 0.2
+      },
+      "name": "rao_p035_r020",
+      "policies": [
+        "resource_aware_offload_adapted"
+      ]
+    },
+    {
+      "base": {
+        "resource_offload_pressure_threshold": 0.5,
+        "resource_offload_rtt_max": 0.25
+      },
+      "name": "rao_p050_r025",
+      "policies": [
+        "resource_aware_offload_adapted"
+      ]
+    },
+    {
+      "base": {
+        "resource_offload_pressure_threshold": 0.65,
+        "resource_offload_rtt_max": 0.3
+      },
+      "name": "rao_p065_r030",
+      "policies": [
+        "resource_aware_offload_adapted"
+      ]
+    },
+    {
+      "base": {
+        "resource_offload_pressure_threshold": 0.8,
+        "resource_offload_rtt_max": 0.35
+      },
+      "name": "rao_p080_r035",
+      "policies": [
+        "resource_aware_offload_adapted"
+      ]
+    },
+    {
+      "base": {
+        "resource_offload_pressure_threshold": 0.9,
+        "resource_offload_rtt_max": 0.5
+      },
+      "name": "rao_p090_r050",
+      "policies": [
+        "resource_aware_offload_adapted"
+      ]
+    },
+    {
+      "name": "xai_default",
+      "policies": [
+        "xai_gate"
+      ]
+    },
+    {
+      "name": "xai_coverage_heavy",
+      "policies": [
+        "xai_gate"
+      ],
+      "xai_gate_weights": {
+        "coverage": 2.8,
+        "exposure": 0.95,
+        "high_risk": 1.8
+      }
+    },
+    {
+      "name": "xai_exposure_strict",
+      "policies": [
+        "xai_gate"
+      ],
+      "xai_gate_weights": {
+        "coverage": 2.0,
+        "exposure": 1.55,
+        "high_risk": 1.35
+      }
+    },
+    {
+      "name": "xai_debt_strict",
+      "policies": [
+        "xai_gate"
+      ],
+      "xai_gate_weights": {
+        "debt": 1.25,
+        "exposure": 1.05,
+        "high_risk": 1.55
+      }
+    },
+    {
+      "name": "xai_service_strict",
+      "policies": [
+        "xai_gate"
+      ],
+      "xai_gate_weights": {
+        "compute": 0.9,
+        "packet_pressure": 1.05,
+        "rtt": 0.9
+      }
+    }
   ]
 }

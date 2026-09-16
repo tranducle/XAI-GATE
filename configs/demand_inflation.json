@@ -1,8 +1,15 @@
 {
-  "name": "demand_sweep",
+  "base": {
+    "alert_probability": 0.15,
+    "exposure_budget_total": 18000.0,
+    "local_explanation_budget": 18.0,
+    "packet_arrival_rate": 45.0,
+    "packet_buffer_capacity": 240.0,
+    "packet_service_rate": 52.0,
+    "threshold": 0.72
+  },
   "experiment_type": "demand_sweep",
-  "slots": 5000,
-  "seeds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+  "name": "demand_inflation",
   "policies": [
     "never_explain",
     "always_explain",
@@ -14,17 +21,39 @@
     "budget_only_bexgov",
     "xai_gate"
   ],
-  "regimes": ["adversarial_explanation_flood"],
+  "regimes": [
+    "adversarial_explanation_flood"
+  ],
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20
+  ],
+  "slots": 5000,
   "sweep": {
-    "attack_arrival_multiplier": [1.0, 1.15, 1.35, 1.6, 2.0]
-  },
-  "base": {
-    "packet_arrival_rate": 45.0,
-    "packet_service_rate": 52.0,
-    "packet_buffer_capacity": 240.0,
-    "alert_probability": 0.15,
-    "local_explanation_budget": 18.0,
-    "exposure_budget_total": 18000.0,
-    "threshold": 0.72
+    "attack_arrival_multiplier": [
+      1.0,
+      1.15,
+      1.35,
+      1.6,
+      2.0
+    ]
   }
 }

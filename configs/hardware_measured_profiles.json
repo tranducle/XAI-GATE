@@ -1,6 +1,278 @@
 {
-  "physical_m2": {"lime":{"median_ms":1.552,"p95_ms":2.869},"kernelshap":{"median_ms":3.847,"p95_ms":5.161}},
-  "arm64_2cpu_4gib": {"kernelshap":{"p95_ms":6.071}},
-  "arm64_0_5cpu_1gib": {"kernelshap":{"p95_ms":54.885,"throttled_period_fraction":0.989}},
-  "notes": "Reference measurements for the documented evaluation. Timing is platform-specific. Offload timing covers local request packaging and excludes network RTT."
+  "arm64_0_5cpu_1gib-LIME": {
+    "absolute_median_ms": {
+      "audit": 0.082841,
+      "coarse": 0.09157799999999999,
+      "delay": 0.000124,
+      "full_kernelshap": 4.1870905,
+      "full_lime": 1.425171,
+      "none": 0.000124,
+      "offload": 0.018481,
+      "redact": 0.08008
+    },
+    "absolute_p95_ms": {
+      "audit": 0.5798768500000009,
+      "coarse": 0.37808550000000013,
+      "delay": 0.000498,
+      "full": 2.8415874000000008,
+      "none": 0.000206,
+      "offload": 0.0318905,
+      "redact": 0.2255471
+    },
+    "compute_overrides": {
+      "audit": {
+        "compute": 0.05812705984053843
+      },
+      "coarse": {
+        "compute": 0.06425755225162454
+      },
+      "delay": {
+        "compute": 0.0
+      },
+      "full": {
+        "compute": 1.0
+      },
+      "none": {
+        "compute": 0.0
+      },
+      "offload": {
+        "compute": 0.012967566699013663
+      },
+      "redact": {
+        "compute": 0.05618974845825519
+      }
+    },
+    "condition": "arm64_0_5cpu_1gib",
+    "full_measurement": "full_lime"
+  },
+  "arm64_0_5cpu_1gib-SHAP": {
+    "absolute_median_ms": {
+      "audit": 0.082841,
+      "coarse": 0.09157799999999999,
+      "delay": 0.000124,
+      "full_kernelshap": 4.1870905,
+      "full_lime": 1.425171,
+      "none": 0.000124,
+      "offload": 0.018481,
+      "redact": 0.08008
+    },
+    "absolute_p95_ms": {
+      "audit": 0.5798768500000009,
+      "coarse": 0.37808550000000013,
+      "delay": 0.000498,
+      "full": 54.885202250000006,
+      "none": 0.000206,
+      "offload": 0.0318905,
+      "redact": 0.2255471
+    },
+    "compute_overrides": {
+      "audit": {
+        "compute": 0.019784860155279662
+      },
+      "coarse": {
+        "compute": 0.021871511972334966
+      },
+      "delay": {
+        "compute": 0.0
+      },
+      "full": {
+        "compute": 1.0
+      },
+      "none": {
+        "compute": 0.0
+      },
+      "offload": {
+        "compute": 0.004413804764907756
+      },
+      "redact": {
+        "compute": 0.01912545238752303
+      }
+    },
+    "condition": "arm64_0_5cpu_1gib",
+    "full_measurement": "full_kernelshap"
+  },
+  "arm64_1cpu_2gib-LIME": {
+    "absolute_median_ms": {
+      "audit": 0.07376949999999999,
+      "coarse": 0.07002349999999999,
+      "delay": 0.000124,
+      "full_kernelshap": 3.6935115,
+      "full_lime": 1.5040870000000002,
+      "none": 0.000125,
+      "offload": 0.015515000000000001,
+      "redact": 0.0751885
+    },
+    "absolute_p95_ms": {
+      "audit": 0.2514267500000004,
+      "coarse": 0.2269445000000001,
+      "delay": 0.000332,
+      "full": 3.6607429000000007,
+      "none": 0.000333,
+      "offload": 0.046318200000000004,
+      "redact": 0.23700815000000006
+    },
+    "compute_overrides": {
+      "audit": {
+        "compute": 0.049046032576573015
+      },
+      "coarse": {
+        "compute": 0.04655548515478159
+      },
+      "delay": {
+        "compute": 0.0
+      },
+      "full": {
+        "compute": 1.0
+      },
+      "none": {
+        "compute": 0.0
+      },
+      "offload": {
+        "compute": 0.010315227776052847
+      },
+      "redact": {
+        "compute": 0.04998946204574602
+      }
+    },
+    "condition": "arm64_1cpu_2gib",
+    "full_measurement": "full_lime"
+  },
+  "arm64_1cpu_2gib-SHAP": {
+    "absolute_median_ms": {
+      "audit": 0.07376949999999999,
+      "coarse": 0.07002349999999999,
+      "delay": 0.000124,
+      "full_kernelshap": 3.6935115,
+      "full_lime": 1.5040870000000002,
+      "none": 0.000125,
+      "offload": 0.015515000000000001,
+      "redact": 0.0751885
+    },
+    "absolute_p95_ms": {
+      "audit": 0.2514267500000004,
+      "coarse": 0.2269445000000001,
+      "delay": 0.000332,
+      "full": 5.4955609,
+      "none": 0.000333,
+      "offload": 0.046318200000000004,
+      "redact": 0.23700815000000006
+    },
+    "compute_overrides": {
+      "audit": {
+        "compute": 0.019972727849906516
+      },
+      "coarse": {
+        "compute": 0.018958516847720656
+      },
+      "delay": {
+        "compute": 0.0
+      },
+      "full": {
+        "compute": 1.0
+      },
+      "none": {
+        "compute": 0.0
+      },
+      "offload": {
+        "compute": 0.004200609636656066
+      },
+      "redact": {
+        "compute": 0.020356915092859466
+      }
+    },
+    "condition": "arm64_1cpu_2gib",
+    "full_measurement": "full_kernelshap"
+  },
+  "physical_m2-LIME": {
+    "absolute_median_ms": {
+      "audit": 0.074771,
+      "coarse": 0.065292,
+      "delay": 8.4e-05,
+      "full_kernelshap": 3.847104,
+      "full_lime": 1.55175,
+      "none": 8.3e-05,
+      "offload": 0.018792,
+      "redact": 0.068292
+    },
+    "absolute_p95_ms": {
+      "audit": 0.1902934,
+      "coarse": 0.78549405,
+      "delay": 0.00025,
+      "full": 2.868625000000004,
+      "none": 0.000167,
+      "offload": 0.025264550000000004,
+      "redact": 0.24126075000000002
+    },
+    "compute_overrides": {
+      "audit": {
+        "compute": 0.04818495247301434
+      },
+      "coarse": {
+        "compute": 0.0420763653939101
+      },
+      "delay": {
+        "compute": 0.0
+      },
+      "full": {
+        "compute": 1.0
+      },
+      "none": {
+        "compute": 0.0
+      },
+      "offload": {
+        "compute": 0.012110198163363945
+      },
+      "redact": {
+        "compute": 0.044009666505558244
+      }
+    },
+    "condition": "physical_m2",
+    "full_measurement": "full_lime"
+  },
+  "physical_m2-SHAP": {
+    "absolute_median_ms": {
+      "audit": 0.074771,
+      "coarse": 0.065292,
+      "delay": 8.4e-05,
+      "full_kernelshap": 3.847104,
+      "full_lime": 1.55175,
+      "none": 8.3e-05,
+      "offload": 0.018792,
+      "redact": 0.068292
+    },
+    "absolute_p95_ms": {
+      "audit": 0.1902934,
+      "coarse": 0.78549405,
+      "delay": 0.00025,
+      "full": 5.1609,
+      "none": 0.000167,
+      "offload": 0.025264550000000004,
+      "redact": 0.24126075000000002
+    },
+    "compute_overrides": {
+      "audit": {
+        "compute": 0.019435658614895778
+      },
+      "coarse": {
+        "compute": 0.016971727304486702
+      },
+      "delay": {
+        "compute": 0.0
+      },
+      "full": {
+        "compute": 1.0
+      },
+      "none": {
+        "compute": 0.0
+      },
+      "offload": {
+        "compute": 0.004884713280431202
+      },
+      "redact": {
+        "compute": 0.01775153466087738
+      }
+    },
+    "condition": "physical_m2",
+    "full_measurement": "full_kernelshap"
+  }
 }

@@ -13,7 +13,7 @@
     "training_summary_path": "../data/unsw_nb15/unsw_nb15_calibration_summary.json"
   },
   "experiment_type": "standard",
-  "name": "unsw_nb15_calibrated_anchor",
+  "name": "unsw_nb15_anchor",
   "policies": [
     "never_explain",
     "always_explain",

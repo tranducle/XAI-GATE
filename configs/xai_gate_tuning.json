@@ -13,7 +13,7 @@
     "training_summary_path": ""
   },
   "experiment_type": "custom_variants",
-  "name": "xai_gate_tuning_envelope",
+  "name": "xai_gate_tuning",
   "policies": [
     "xai_gate"
   ],
@@ -65,10 +65,10 @@
       }
     },
     {
-      "name": "coverage_heavy_budget20",
       "base": {
         "local_explanation_budget": 20.0
       },
+      "name": "coverage_heavy_budget20",
       "policies": [
         "xai_gate"
       ],
@@ -131,37 +131,37 @@
       }
     },
     {
-      "name": "low_exposure_budget",
       "base": {
         "exposure_budget_total": 15000.0
       },
+      "name": "low_exposure_budget",
       "policies": [
         "xai_gate"
       ]
     },
     {
-      "name": "high_exposure_budget",
       "base": {
         "exposure_budget_total": 22000.0
       },
+      "name": "high_exposure_budget",
       "policies": [
         "xai_gate"
       ]
     },
     {
-      "name": "low_local_budget",
       "base": {
         "local_explanation_budget": 14.0
       },
+      "name": "low_local_budget",
       "policies": [
         "xai_gate"
       ]
     },
     {
-      "name": "high_local_budget",
       "base": {
         "local_explanation_budget": 24.0
       },
+      "name": "high_local_budget",
       "policies": [
         "xai_gate"
       ]
@@ -183,10 +183,10 @@
       }
     },
     {
-      "name": "balanced_coverage",
       "base": {
         "local_explanation_budget": 20.0
       },
+      "name": "balanced_coverage",
       "policies": [
         "xai_gate"
       ],
@@ -202,11 +202,11 @@
       }
     },
     {
-      "name": "security_budget",
       "base": {
         "exposure_budget_total": 16500.0,
         "local_explanation_budget": 20.0
       },
+      "name": "security_budget",
       "policies": [
         "xai_gate"
       ],

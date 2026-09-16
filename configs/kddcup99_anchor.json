@@ -13,7 +13,7 @@
     "training_summary_path": "../data/kddcup99_sa_calibration_summary.json"
   },
   "experiment_type": "standard",
-  "name": "calibrated_anchor",
+  "name": "kddcup99_anchor",
   "policies": [
     "never_explain",
     "always_explain",

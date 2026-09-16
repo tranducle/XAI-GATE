@@ -1,31 +1,68 @@
 #!/usr/bin/env python3
-"""Run a short deterministic XAI-SurfaceBench reproducibility check."""
+"""Deterministic sanity check for XAI-SurfaceBench."""
 
 from __future__ import annotations
 
+import argparse
 import json
+import math
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from xai_surfacebench.core import load_json, run_experiment
-from xai_surfacebench.extensions import install_policy_extensions
+from xai_surfacebench.core import (  # noqa: E402
+    MANDATORY_POLICIES,
+    MANDATORY_REGIMES,
+    PRIMARY_METRICS,
+    SECONDARY_METRICS,
+    load_json,
+    run_experiment,
+    validate_required_coverage,
+    write_outputs,
+)
+
+
+def normalize(rows):
+    return json.dumps(rows, sort_keys=True, separators=(",", ":"))
+
+
+def assert_valid(rows):
+    required_metrics = PRIMARY_METRICS + SECONDARY_METRICS
+    for row in rows:
+        for metric in required_metrics:
+            value = float(row[metric])
+            if not math.isfinite(value):
+                raise AssertionError(f"non-finite {metric}: {row}")
+            if metric != "attacker_trigger_gain" and value < -1e-12:
+                raise AssertionError(f"negative {metric}: {row}")
+        if row["policy"] not in MANDATORY_POLICIES:
+            raise AssertionError(f"unknown policy {row['policy']}")
+        if row["regime"] not in MANDATORY_REGIMES:
+            raise AssertionError(f"unknown regime {row['regime']}")
 
 
 def main() -> int:
-    install_policy_extensions()
-    path = ROOT / "configs" / "sanity_check.json"
-    config = load_json(path)
-    first = run_experiment(config, path.parent)
-    second = run_experiment(config, path.parent)
-    left = json.dumps(first, sort_keys=True, separators=(",", ":"))
-    right = json.dumps(second, sort_keys=True, separators=(",", ":"))
-    if left != right:
-        raise SystemExit("deterministic rerun mismatch")
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--config", default=ROOT / "configs" / "sanity_check.json", type=Path)
+    parser.add_argument("--output-root", default=ROOT, type=Path)
+    args = parser.parse_args()
+
+    config_path = args.config.resolve()
+    config = load_json(config_path)
+    validate_required_coverage(config, require_all=True)
+    first = run_experiment(config, config_path.parent)
+    second = run_experiment(config, config_path.parent)
+    assert_valid(first)
+    assert_valid(second)
+    if normalize(first) != normalize(second):
+        raise AssertionError("deterministic rerun mismatch")
+    paths = write_outputs(first, config, args.output_root.resolve())
     print(f"sanity_runs={len(first)}")
     print("deterministic_rerun=pass")
+    for label, path in paths.items():
+        print(f"{label}={path}")
     return 0
 
 
